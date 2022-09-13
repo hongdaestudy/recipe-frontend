@@ -12,6 +12,7 @@ import Join from './component/user/join.component';
 import List from './component/recipe/list.component';
 import Register from './component/recipe/register.component';
 import Profile from './component/user/profile.component';
+import "./index.css";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

@@ -1,14 +1,22 @@
 import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
-import { FormValues, defaultValues } from "../../types/register.type"
+import { FormValues, defaultValues, Tag } from "../../types/register.type"
 import IngredientGroupArray from "./ingredientGroupArray";
 import RecipeStepArray from "./recipeStepArray";
 import RecipeService from "../../services/recipe.service";
 import UploadImage from "./uploadImage";
+import { TagsInput } from "react-tag-input-component";
+import { useState } from "react";
+import styled from "styled-components";
+
 export default function Register() {
   const methods = useForm<FormValues>({
     defaultValues
   });
   const onSubmit: SubmitHandler<FormValues> = data => {
+    data = {
+      ...data,
+      tags
+    }
     console.log(data);
     RecipeService.register(data).then(response=> {
       console.log(JSON.parse(response.data.data));
@@ -16,6 +24,14 @@ export default function Register() {
   }
   const { register, handleSubmit, formState: { errors } } = methods;
 
+  const [tags, setTags] = useState<Tag[]>([]);
+  const onTagsChange = (tags: string[]) => {
+    setTags(
+      tags.map(str => ({
+        tagName: str
+      })
+    ));
+  }
   return (
     <>
       <h2>레시피 등록</h2>
@@ -41,9 +57,13 @@ export default function Register() {
 
           <div>
             <label>동영상</label>
-            <textarea {...register("videoUrl")} placeholder="동영상이 있으면 주소를 입력하세요."/>
+            <textarea {...register("videoUrl", {
+                onChange: e => { console.log(e.target.value) }
+              })}
+              placeholder="동영상이 있으면 주소를 입력하세요."
+            />
             <span>
-              동영상 썸네일 공간
+              <VideoThumbnail src="/logo192.png" alt="동영상 썸네일" />
             </span>
           </div>
 
@@ -113,6 +133,17 @@ export default function Register() {
           </div>
 
           <div>
+            <label>태그</label>
+            <TagsInput
+              onChange={onTagsChange}
+              onExisting={tag => tag}
+              seprators={["Enter", " ", ","]}
+              placeHolder="태그를 입력하세요"
+            />
+
+          </div>
+
+          <div>
             <input type="submit" />
           </div>
         </form>
@@ -120,3 +151,10 @@ export default function Register() {
     </>
   )
 }
+
+
+const VideoThumbnail = styled.img`
+  width: 64px;
+  height: 48px;
+  border: 1px solid lightgray;
+`
