@@ -1,0 +1,144 @@
+[
+  {
+    "recipeId": "1",
+    "title": "Baked Salmon",
+    "mainPhotoUrl" : "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2021/01/Baked-Salmon-8.jpg",
+    "ingredientGroups": [
+      {
+        "name": "Ingredients",
+        "ingredients": [
+          { "name": "Salmon", "amount": "1lb" },
+          { "name": "Pine Nuts", "amount": "1 cup" },
+          { "name": "Butter Lettuce", "amount": "2 cups" },
+          { "name": "Yellow Squash", "amount": "1 med" }
+        ]
+      },
+      {
+        "name": "Seasonings",
+        "ingredients": [
+          { "name": "Olive Oil", "amount": "0.5 cup" },
+          { "name": "Garlic", "amount": "3 cloves" }
+        ]
+      }
+    ],
+    "recipeSteps": [
+      {
+        "description": "Preheat the oven to 350 degrees."
+      },
+      {
+        "description": "Spread the olive oil around a glass baking dish."
+      },
+      {
+        "description": "Add the yellow squash and place in the oven for 30 mins."
+      },
+      {
+        "description": "Add the salmon, garlic, and pine nuts to the dish."
+      },
+      {
+        "description": "Bake for 15 minutes."
+      },
+      {
+        "description": "Remove from oven. Add the lettuce and serve."
+      }
+    ]
+  },
+  {
+    "recipeId": "2",
+    "title": "Fish Tacos",
+    "mainPhotoUrl" : "https://hips.hearstapps.com/hmg-prod/images/190307-fish-tacos-112-1553283299.jpg",
+    "ingredientGroups": [
+      {
+        "name": "Ingredients",
+        "ingredients": [
+          { "name": "Whitefish", "amount": "l lb" },
+          { "name": "Cheese", "amount": "1 cup" },
+          { "name": "Iceberg Lettuce", "amount": "2 cups" },
+          { "name": "Tomatoes", "amount": "2 large" },
+          { "name": "Tortillas", "amount": "3 med" }
+        ]
+      }
+    ],
+    "recipeSteps": [
+      {
+        "description": "Cook the fish on the grill until hot."
+      },
+      {
+        "description": "Place the fish on the 3 tortillas."
+      },
+      {
+        "description": "Top them with lettuce, tomatoes, and cheese."
+      }
+    ]
+  },
+  {
+    "recipeId": "3",
+    "title": "Baked Salmon",
+    "mainPhotoUrl" : "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2021/01/Baked-Salmon-8.jpg",
+    "ingredientGroups": [
+      {
+        "name": "Ingredients",
+        "ingredients": [
+          { "name": "Salmon", "amount": "1lb" },
+          { "name": "Pine Nuts", "amount": "1 cup" },
+          { "name": "Butter Lettuce", "amount": "2 cups" },
+          { "name": "Yellow Squash", "amount": "1 med" }
+        ]
+      },
+      {
+        "name": "Seasonings",
+        "ingredients": [
+          { "name": "Olive Oil", "amount": "0.5 cup" },
+          { "name": "Garlic", "amount": "3 cloves" }
+        ]
+      }
+    ],
+    "recipeSteps": [
+      {
+        "description": "Preheat the oven to 350 degrees."
+      },
+      {
+        "description": "Spread the olive oil around a glass baking dish."
+      },
+      {
+        "description": "Add the yellow squash and place in the oven for 30 mins."
+      },
+      {
+        "description": "Add the salmon, garlic, and pine nuts to the dish."
+      },
+      {
+        "description": "Bake for 15 minutes."
+      },
+      {
+        "description": "Remove from oven. Add the lettuce and serve."
+      }
+    ]
+  },
+  {
+    "recipeId": "4",
+    "title": "Fish Tacos",
+    "mainPhotoUrl" : "https://hips.hearstapps.com/hmg-prod/images/190307-fish-tacos-112-1553283299.jpg",
+    "ingredientGroups": [
+      {
+        "name": "Ingredients",
+        "ingredients": [
+          { "name": "Whitefish", "amount": "l lb" },
+          { "name": "Cheese", "amount": "1 cup" },
+          { "name": "Iceberg Lettuce", "amount": "2 cups" },
+          { "name": "Tomatoes", "amount": "2 large" },
+          { "name": "Tortillas", "amount": "3 med" }
+        ]
+      }
+    ],
+    "recipeSteps": [
+      {
+        "description": "Cook the fish on the grill until hot."
+      },
+      {
+        "description": "Place the fish on the 3 tortillas."
+      },
+      {
+        "description": "Top them with lettuce, tomatoes, and cheese."
+      }
+    ]
+  }
+]

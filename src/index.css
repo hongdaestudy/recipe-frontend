@@ -26,6 +26,34 @@ body,
   --rti-tag: #edf2f7 !important;
   --rti-tag-remove: #e53e3e !important;
 }
-.rit--input {
+.rti--input {
   flex: 1 !important;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  margin: 0;
+}
+
+.box {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
+.box .row.header {
+  flex: 0 1 auto;
+  /* The above is shorthand for:
+  flex-grow: 0,
+  flex-shrink: 1,
+  flex-basis: auto
+  */
+}
+
+.box .row.content {
+  flex: 1 1 auto;
+}
+
+.box .row.footer {
+  border-top: 1px solid #dcdcdc;
+  flex: 0 1 40px;
 }

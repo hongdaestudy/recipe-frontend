@@ -12,6 +12,8 @@ import Join from './component/user/join.component';
 import List from './component/recipe/list.component';
 import Register from './component/recipe/register.component';
 import Profile from './component/user/profile.component';
+import DetailView from './component/recipe/detailView.component';
+
 import "./index.css";
 
 const root = ReactDOM.createRoot(
@@ -23,6 +25,7 @@ root.render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />}>
+            <Route path="recipe/:recipeId" element={<DetailView />} />
             <Route path="recipe/list" element={<List />} />
             <Route path="recipe/register" element={<Register />} />
             <Route path="profile" element={<Profile />} />
