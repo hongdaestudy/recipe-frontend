@@ -17,7 +17,7 @@ body,
 
 .rti--container {
   display: inline-flex !important;
-  width: 500px;
+  width: 600px;
   --rti-bg: #fff !important;
   --rti-border: lightgray !important;
   --rti-main: gray !important;
@@ -25,6 +25,9 @@ body,
   --rti-s: 0.5rem !important; /* spacing */
   --rti-tag: #edf2f7 !important;
   --rti-tag-remove: #e53e3e !important;
+}
+.rti--container:focus {
+  outline-color: #74b243;
 }
 .rti--input {
   flex: 1 !important;

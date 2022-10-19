@@ -8,21 +8,22 @@ export interface IngredientGroup {
 }
 export interface RecipeStep {
   description: string,
-  photoUrl: string
+  photoFileList: FileList
 }
 export interface Tag {
   tagName: string,
 }
 export interface FormValues {
+  file: any,
   userProfileId: string,
   title: string,
   description: string,
   videoUrl: string,
-  mainPhotoUrl: string,
+  mainPhotoFileList: FileList,
   servingCount: string,
   cookingTime: string,
   difficultyLevel: string,
-  completionPhotoUrl: string,
+  completionPhotoFileList: FileList,
   tip: string,
   //status backend에서?
   kind: string,
@@ -58,7 +59,7 @@ export const defaultValues = {
   recipeSteps: [
     {
       description: "",
-      photoUrl: ""
+      photoFileList: new DataTransfer().files
     }
   ]
 };

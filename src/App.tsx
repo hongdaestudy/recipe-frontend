@@ -19,7 +19,7 @@ export default function App() {
   return (
     <div className="box">
       <div className="row header">
-        <h1>레시피 클론: <img src="/1000recipe.png" /></h1>
+        <h1>레시피 클론: <img src="/1000recipe.png" alt="" /></h1>
         
         <nav
           style={{

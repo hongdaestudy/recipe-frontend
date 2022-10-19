@@ -1,5 +1,9 @@
 import { useFormContext, useFieldArray } from "react-hook-form";
 import { FormValues } from "../../types/register.type";
+import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
+import { TextField } from "@mui/material";
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 interface IngredientArrayProps {
   name: string;
@@ -44,28 +48,37 @@ export default function IngredientArray({ name, index }: IngredientArrayProps) {
   });
 
   return (
-    <>
-      <section>
-        <h4>재료</h4>
-        <ul>
-          {fields.map((item, i) => (
-            <li key={item.id}>
-              <label>재료이름: </label>
-              <input
-                {...register(`ingredientGroups.${index}.ingredients.${i}.name`)}
-                placeholder={getPlaceholderForIngredientName(i)}
-              />
-              <label>양: </label>
-              <input
-                {...register(`ingredientGroups.${index}.ingredients.${i}.amount`)}
-                placeholder={getPlaceholderForIngredientAmount(i)}
-              />
-              <button type="button" onClick={() => remove(i)}>X</button>
-            </li>
-          ))}
-        </ul>
-        <button type="button" onClick={() => append({ name: "", amount: "" })}>재료 추가</button>
-      </section>
-    </>
+    <span>
+      <ul style={{listStyle: "none", display:"inline-block"}}>
+        {fields.map((item, i) => (
+          <li key={item.id}>
+            <TextField
+              {...register(`ingredientGroups.${index}.ingredients.${i}.name`)}
+              placeholder={getPlaceholderForIngredientName(i)}
+              variant="outlined"
+              size="small"
+              color="success"
+            />
+            <TextField
+              {...register(`ingredientGroups.${index}.ingredients.${i}.amount`)}
+              placeholder={getPlaceholderForIngredientAmount(i)}
+              variant="outlined"
+              size="small"
+              color="success"
+            />
+            <IconButton aria-label="delete" onClick={() => remove(i)}>
+              <DeleteIcon />
+            </IconButton>
+          </li>
+        ))}
+      </ul>
+      <div style={{textAlign:"center"}}>
+        <button
+          type="button"
+          onClick={() => append({ name: "", amount: "" })}
+          style={{display:"inline-flex", alignItems: "center", border: "none", background: "none", cursor: "pointer"}}
+          ><AddCircleOutlineRoundedIcon color="success"/> 재료 추가</button>
+      </div>
+    </span>
   )
 }

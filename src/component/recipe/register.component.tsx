@@ -7,12 +7,44 @@ import UploadImage from "./uploadImage";
 import { TagsInput } from "react-tag-input-component";
 import { useState } from "react";
 import styled from "styled-components";
+import FileService from "../../services/file.service";
+import { Button, Dialog, DialogTitle, LinearProgress, TextField } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const methods = useForm<FormValues>({
     defaultValues
   });
-  const onSubmit: SubmitHandler<FormValues> = data => {
+
+  const [uploading, setUploading] = useState(false);
+  const [totalProgress, setTotalProgress] = useState(0);
+
+  const onSubmit: SubmitHandler<FormValues> = async (data, e) => {
+    setTotalProgress(0);
+    setUploading(true);
+    //console.log(e);
+    let count = 0;
+    const recipeStepsWithPhotos = data.recipeSteps.filter(recipeStep => recipeStep.photoFileList.length !== 0);
+    let totalCount = recipeStepsWithPhotos.length + (data.completionPhotoFileList.length > 0 ? 2 : 1);
+    await FileService.upload(data.mainPhotoFileList[0]);
+    count++;
+    setTotalProgress(count / totalCount * 100);
+
+    if(data.completionPhotoFileList.length > 0) {
+      await FileService.upload(data.completionPhotoFileList[0]);
+      count++;
+      setTotalProgress(count / totalCount * 100);
+    }
+    
+    for(const recipeStep of data.recipeSteps) {
+      if(recipeStep.photoFileList.length > 0) {
+        await FileService.upload(recipeStep.photoFileList[0]);
+        count++;
+        setTotalProgress(count / totalCount * 100);
+      }
+    }
+    //DELETE FILELIST
+    //ADD FILE_ID
     data = {
       ...data,
       tags
@@ -20,6 +52,8 @@ export default function Register() {
     console.log(data);
     RecipeService.register(data).then(response=> {
       console.log(JSON.parse(response.data.data));
+
+      setUploading(false);
     });
   }
   const { register, handleSubmit, formState: { errors } } = methods;
@@ -32,129 +66,239 @@ export default function Register() {
       })
     ));
   }
+  const navigate = useNavigate();
   return (
     <>
       <h2>레시피 등록</h2>
-      <h3>기본정보</h3>
+      
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <label>요리 메인사진</label>
-            <UploadImage name="mainPhotoUrl"/>
-          </div>
+          <ContentWrapper>
+            <h3>기본정보</h3>
 
-          <div>
-            <label>레시피 제목</label>
-            <input {...register("title", { required: true })} placeholder="예) 소고기 미역국 끓이기" />
-            {errors.title && <span>This field is required</span>}
-          </div>
+            <LabeledDiv>
+              <label>요리 메인사진 *</label>
+              <UploadImage
+                name="mainPhotoFileList"
+                defaultSrc="https://recipe1.ezmember.co.kr/img/pic_none4.gif"
+                width="192px"
+                height="192px" />
+            </LabeledDiv>
 
-          <div>
-            <label>요리소개</label>
-            <textarea {...register("description", { required: true })} placeholder="이 레시피의 탄생배경을 적어주세요."/>
-            {errors.description && <span>This field is required</span>}
-          </div>
+            <LabeledDiv>
+              <label>레시피 제목 *</label>
+              <TextField
+                {...register("title", { required: true })}
+                placeholder="예) 소고기 미역국 끓이기"
+                variant="outlined"
+                size="small"
+                color="success"
+                sx={{ width: '600px'}}
+                required />
+              {errors.title && <span>This field is required</span>}
+            </LabeledDiv>
 
-          <div>
-            <label>동영상</label>
-            <textarea {...register("videoUrl", {
-                onChange: e => { console.log(e.target.value) }
-              })}
-              placeholder="동영상이 있으면 주소를 입력하세요."
-            />
-            <span>
-              <VideoThumbnail src="/logo192.png" alt="동영상 썸네일" />
-            </span>
-          </div>
+            <LabeledDiv>
+              <label>요리소개 *</label>
+              <TextField
+                {...register("description", { required: true })}
+                placeholder="이 레시피의 탄생배경을 적어주세요. 예) 남편의 생일을 맞아 소고기 미역국을 끓여봤어요. 어머니로부터 배운 미역국 레시피를 남편의 입맛에 맞게 고안했습니다."
+                variant="outlined"
+                size="small"
+                color="success"
+                sx={{ width: '600px'}}
+                multiline
+                rows={5}
+                required />
+              {errors.description && <span>This field is required</span>}
+            </LabeledDiv>
 
-          <div>
-            <label>카테코리</label>
-            <select {...register("kind")}>
-              <option>종류별</option>
-              <option value="밑반찬">밑반찬</option>
-              <option value="메인반찬">메인반찬</option>
-            </select>
+            <LabeledDiv>
+              <label>동영상</label>
+              <TextField {...register("videoUrl", {
+                  onChange: e => { console.log(e.target.value) }
+                })}
+                placeholder="동영상이 있으면 주소를 입력하세요. 예)http://youtu.be/lA0Bxo3IZmM"
+                variant="outlined"
+                size="small"
+                color="success"
+                sx={{ width: '300px'}}
+                multiline
+                rows={3}
+                required />
+              <span>
+                <VideoThumbnail src="https://recipe1.ezmember.co.kr/img/pic_none5.gif" alt="동영상 썸네일" />
+              </span>
+            </LabeledDiv>
 
-            <select {...register("situation")}>
-              <option>상황별</option>
-              <option value="일상">일상</option>
-              <option value="초스피드">초스피드</option>
-            </select>
+            <LabeledDiv>
+              <label>카테코리</label>
+              <Select
+                {...register("kind")}
+              >
+                <option value="종류별">종류별</option>
+                <option value="밑반찬">밑반찬</option>
+                <option value="메인반찬">메인반찬</option>
+              </Select>
 
-            <select {...register("method")}>
-              <option>방법별</option>
-              <option value="볶음">볶음</option>
-              <option value="끓이기">끓이기</option>
-            </select>
+              <Select {...register("situation")}>
+                <option>상황별</option>
+                <option value="일상">일상</option>
+                <option value="초스피드">초스피드</option>
+              </Select>
 
-            <select {...register("ingredient")}>
-              <option>재료별</option>
-              <option value="소고기">소고기</option>
-              <option value="돼지고기">돼지고기</option>
-            </select>
-          </div>
+              <Select {...register("method")}>
+                <option>방법별</option>
+                <option value="볶음">볶음</option>
+                <option value="끓이기">끓이기</option>
+              </Select>
 
-          <div>
+              <Select {...register("ingredient")}>
+                <option>재료별</option>
+                <option value="소고기">소고기</option>
+                <option value="돼지고기">돼지고기</option>
+              </Select>
+            </LabeledDiv>
+
+            <LabeledDiv>
             <label>요리정보</label>
-            <select {...register("servingCount")}>
+            <Select {...register("servingCount")}>
               <option>인원</option>
               <option value="1인분">1인분</option>
               <option value="2인분">2인분</option>
-            </select>
+            </Select>
 
-            <select {...register("cookingTime")}>
+            <Select {...register("cookingTime")}>
               <option>시간</option>
               <option value="5분이내">5분이내</option>
               <option value="10분이내">10분이내</option>
-            </select>
+            </Select>
 
-            <select {...register("difficultyLevel")}>
+            <Select {...register("difficultyLevel")}>
               <option>난이도</option>
               <option value="아무나">아무나</option>
               <option value="초급">초급</option>
-            </select>
-          </div>
+            </Select>
 
-          <IngredientGroupArray />
+            </LabeledDiv>
+          </ContentWrapper>
+          <Line />
 
-          <RecipeStepArray />
+          <ContentWrapper>
+            <IngredientGroupArray />
+          </ContentWrapper>
+            
+          <Line />
+          <ContentWrapper>
+            <RecipeStepArray />
+            <LabeledDiv>
+              <label>요리완성사진</label>
+              <UploadImage name="completionPhotoFileList"/>
+            </LabeledDiv>
+          </ContentWrapper>
+          <Line />
 
-          <div>
-            <label>요리완성사진</label>
-            <UploadImage name="completionPhotoUrl"/>
-          </div>
+          <ContentWrapper>
+            <LabeledDiv>
+              <label>요리팁</label>
+              <TextField
+                {...register("tip")}
+                placeholder="예) 고기요리에는 소금보다 설텅을 먼저 넣어야 단맛이 겉돌지 않고 육질이 부드러워요."
+                variant="outlined"
+                size="small"
+                color="success"
+                sx={{ width: '600px'}}
+                multiline
+                rows={5}
+              />
+            </LabeledDiv>
+          </ContentWrapper>
 
-          <div>
-            <label>요리팁</label>
-            <textarea
-              {...register("tip")}
-              placeholder="예) 고기요리에는 소금보다 설텅을 먼저 넣어야 단맛이 겉돌지 않고 육질이 부드러워요."
-            />
-          </div>
+          <Line />
+          <ContentWrapper>
+            <LabeledDiv>
+              <label>태그</label>
+              <TagsInput
+                onChange={onTagsChange}
+                onExisting={tag => tag}
+                seprators={["Enter", " ", ","]}
+                placeHolder="태그 입력 후 Enter를 누르세요"
+              />
+            </LabeledDiv>
+          </ContentWrapper>
+          
+          <Line />
 
-          <div>
-            <label>태그</label>
-            <TagsInput
-              onChange={onTagsChange}
-              onExisting={tag => tag}
-              seprators={["Enter", " ", ","]}
-              placeHolder="태그를 입력하세요"
-            />
-
-          </div>
-
-          <div>
-            <input type="submit" />
+          <div style={{textAlign: "center"}}>
+            <Button
+              variant="contained"
+              size="large"
+              color="success"
+              onClick={handleSubmit(onSubmit)}>저장</Button>
+            <Button
+              variant="contained"
+              size="large"
+              color="warning"
+              >저장 후 공개하기</Button>
+            <Button
+              variant="contained"
+              size="large"
+              color="primary"
+              onClick={() => navigate(-1)}
+              >취소</Button>
           </div>
         </form>
       </FormProvider>
+
+      {
+        uploading && (
+          <Dialog open={uploading}>
+            <DialogTitle>사진을 업로드 중입니다...</DialogTitle>
+            <LinearProgress variant="determinate" value={totalProgress} />
+          </Dialog>
+        )
+      }
     </>
   )
 }
 
 
 const VideoThumbnail = styled.img`
-  width: 64px;
-  height: 48px;
-  border: 1px solid lightgray;
+  margin-left: 20px;
+  width: 128px;
+  height: 80px;
+`
+
+const ContentWrapper = styled.div`
+  width: 800px;
+  margin: 0 auto;
+  padding-bottom: 40px;
+  padding-top: 40px;
+`
+const Line = styled.div`
+  width: 100%;
+  height: 10px;
+  background-color: lightgray;
+`
+
+const LabeledDiv = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  > label {
+    width: 120px;
+    display: inline-block;
+  }
+`
+
+const Select = styled.select`
+  border: 1px solid rgba(0,0,0,0.23);
+  width: 128px;
+  font-size: 16px;
+  padding: 8px 2px;
+  margin: 0 2px 0 0;
+  border-radius: 4px;
+  :focus {
+    outline-color: rgb(104, 161, 58);
+  }
 `

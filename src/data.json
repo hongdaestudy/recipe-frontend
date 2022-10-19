@@ -2,7 +2,14 @@
   {
     "recipeId": "1",
     "title": "Baked Salmon",
+    "nickname": "주부9단요리톡톡",
+    "isFollowingChef": false,
+    "description": "나만 알고싶은 연어 레시피",
+    "videoUrl": "https://www.youtube.com/watch?v=2uYoqclu6so",
     "mainPhotoUrl" : "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2021/01/Baked-Salmon-8.jpg",
+    "servingCount": "2인분",
+    "cookingTime": "1시간",
+    "difficultyLevel": "아무나",
     "ingredientGroups": [
       {
         "name": "Ingredients",
@@ -21,18 +28,68 @@
         ]
       }
     ],
-    "recipeSteps": [
+    "knowhowVideos": [
       {
-        "description": "Preheat the oven to 350 degrees."
+        "title": "연어 손질법1",
+        "thumbnailUrl" : "https://post.healthline.com/wp-content/uploads/2021/06/salmon-fillet-fillets-1200x628-facebook-800x628.jpg",
+        "recipeId": "1"
       },
       {
-        "description": "Spread the olive oil around a glass baking dish."
+        "title": "연어 손질법2",
+        "thumbnailUrl" : "https://post.healthline.com/wp-content/uploads/2021/06/salmon-fillet-fillets-1200x628-facebook-800x628.jpg",
+        "recipeId": "1"
+      },
+      {
+        "title": "연어 손질법3",
+        "thumbnailUrl" : "https://post.healthline.com/wp-content/uploads/2021/06/salmon-fillet-fillets-1200x628-facebook-800x628.jpg",
+        "recipeId": "1"
+      },
+      {
+        "title": "연어 손질법4",
+        "thumbnailUrl" : "https://post.healthline.com/wp-content/uploads/2021/06/salmon-fillet-fillets-1200x628-facebook-800x628.jpg",
+        "recipeId": "1"
+      },
+      {
+        "title": "연어 손질법5",
+        "thumbnailUrl" : "https://post.healthline.com/wp-content/uploads/2021/06/salmon-fillet-fillets-1200x628-facebook-800x628.jpg",
+        "recipeId": "1"
+      },
+      {
+        "title": "연어 손질법6",
+        "thumbnailUrl" : "https://post.healthline.com/wp-content/uploads/2021/06/salmon-fillet-fillets-1200x628-facebook-800x628.jpg",
+        "recipeId": "1"
+      },
+      {
+        "title": "연어 손질법7",
+        "thumbnailUrl" : "https://post.healthline.com/wp-content/uploads/2021/06/salmon-fillet-fillets-1200x628-facebook-800x628.jpg",
+        "recipeId": "1"
+      },
+      {
+        "title": "연어 손질법8",
+        "thumbnailUrl" : "https://post.healthline.com/wp-content/uploads/2021/06/salmon-fillet-fillets-1200x628-facebook-800x628.jpg",
+        "recipeId": "1"
+      },
+      {
+        "title": "연어 손질법9",
+        "thumbnailUrl" : "https://post.healthline.com/wp-content/uploads/2021/06/salmon-fillet-fillets-1200x628-facebook-800x628.jpg",
+        "recipeId": "1"
+      }
+    ],
+    "recipeSteps": [
+      {
+        "description": "Preheat the oven to 350 degrees.",
+        "photoUrl": "https://boatbasincafe.com/wp-content/uploads/2021/09/oven-preheat-time.jpg"
+      },
+      {
+        "description": "Spread the olive oil around a glass baking dish.",
+        "photoUrl": "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2021/01/Baked-Salmon-Ingredients.jpg"
       },
       {
         "description": "Add the yellow squash and place in the oven for 30 mins."
       },
       {
-        "description": "Add the salmon, garlic, and pine nuts to the dish."
+        "description": "Add the salmon, garlic, and pine nuts to the dish.",
+        "photoUrl": "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2021/01/Baked-Salmon-1-2.jpg"
       },
       {
         "description": "Bake for 15 minutes."
@@ -40,12 +97,48 @@
       {
         "description": "Remove from oven. Add the lettuce and serve."
       }
+    ],
+    "completionPhotoUrl" : "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2021/01/Baked-Salmon-8.jpg",
+    "tip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "createdAt": "2022/09/01",
+    "updatedAt": "2022/09/25",
+    
+    "comments": [
+      {
+        "nickname": "꼬꼬깡지",
+        "profileUrl": "https://recipe1.ezmember.co.kr/cache/rpf/2021/09/29/93a475978c03c34b38f53b7b1bcbcc821.jpg",
+        "contents": "Test comment",
+        "createdAt": "2020-03-09 22:55:22",
+        "score": 5,
+        "level": 0,
+        "photoUrl": "https://recipe1.ezmember.co.kr/cache/recipe/2016/04/21/506d52874ea1d0d8120735eb7bd8763e1.jpg"
+      },
+      {
+        "nickname": "주부9단요리톡톡",
+        "profileUrl": "https://recipe1.ezmember.co.kr/cache/rpf/2022/01/04/d46dd59a23c75300f535f60f68a5bc9c1.jpg",
+        "contents": "감사합니다.",
+        "createdAt": "2022-01-21 12:44:50",
+        "level": 1
+      },
+      {
+        "nickname": "깜량리얀",
+        "profileUrl": "https://recipe1.ezmember.co.kr/cache/rpf/2020/02/27/b66cf8003e7d4e0ae87a32fcabaf6c1e1.jpg",
+        "contents": "Test comment2",
+        "createdAt": "2022-07-09 12:43:28",
+        "score": 3,
+        "level": 0
+      }
     ]
   },
   {
     "recipeId": "2",
     "title": "Fish Tacos",
+    "nickname": "주부9단요리톡톡",
+    "isFollowingChef": false,
     "mainPhotoUrl" : "https://hips.hearstapps.com/hmg-prod/images/190307-fish-tacos-112-1553283299.jpg",
+    "servingCount": "2인분",
+    "cookingTime": "1시간",
+    "difficultyLevel": "아무나",
     "ingredientGroups": [
       {
         "name": "Ingredients",
@@ -58,6 +151,53 @@
         ]
       }
     ],
+    "knowhowVideos": [
+      {
+        "title": "연어 손질법1",
+        "thumbnailUrl" : "https://post.healthline.com/wp-content/uploads/2021/06/salmon-fillet-fillets-1200x628-facebook-800x628.jpg",
+        "recipeId": "1"
+      },
+      {
+        "title": "연어 손질법2",
+        "thumbnailUrl" : "https://post.healthline.com/wp-content/uploads/2021/06/salmon-fillet-fillets-1200x628-facebook-800x628.jpg",
+        "recipeId": "1"
+      },
+      {
+        "title": "연어 손질법3",
+        "thumbnailUrl" : "https://post.healthline.com/wp-content/uploads/2021/06/salmon-fillet-fillets-1200x628-facebook-800x628.jpg",
+        "recipeId": "1"
+      },
+      {
+        "title": "연어 손질법4",
+        "thumbnailUrl" : "https://post.healthline.com/wp-content/uploads/2021/06/salmon-fillet-fillets-1200x628-facebook-800x628.jpg",
+        "recipeId": "1"
+      },
+      {
+        "title": "연어 손질법5",
+        "thumbnailUrl" : "https://post.healthline.com/wp-content/uploads/2021/06/salmon-fillet-fillets-1200x628-facebook-800x628.jpg",
+        "recipeId": "1"
+      },
+      {
+        "title": "연어 손질법6",
+        "thumbnailUrl" : "https://post.healthline.com/wp-content/uploads/2021/06/salmon-fillet-fillets-1200x628-facebook-800x628.jpg",
+        "recipeId": "1"
+      },
+      {
+        "title": "연어 손질법7",
+        "thumbnailUrl" : "https://post.healthline.com/wp-content/uploads/2021/06/salmon-fillet-fillets-1200x628-facebook-800x628.jpg",
+        "recipeId": "1"
+      },
+      {
+        "title": "연어 손질법8",
+        "thumbnailUrl" : "https://post.healthline.com/wp-content/uploads/2021/06/salmon-fillet-fillets-1200x628-facebook-800x628.jpg",
+        "recipeId": "1"
+      },
+      {
+        "title": "연어 손질법9",
+        "thumbnailUrl" : "https://post.healthline.com/wp-content/uploads/2021/06/salmon-fillet-fillets-1200x628-facebook-800x628.jpg",
+        "recipeId": "1"
+      }
+    ],
     "recipeSteps": [
       {
         "description": "Cook the fish on the grill until hot."
@@ -68,7 +208,9 @@
       {
         "description": "Top them with lettuce, tomatoes, and cheese."
       }
-    ]
+    ],
+    "completionPhotoUrl" : "https://hips.hearstapps.com/hmg-prod/images/190307-fish-tacos-112-1553283299.jpg",
+    "tip": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
   },
   {
     "recipeId": "3",

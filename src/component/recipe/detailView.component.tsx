@@ -1,11 +1,40 @@
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useState, useEffect, ReactNode } from "react";
 import RecipeService from "../../services/recipe.service";
 import { Recipe } from "../../types/detailView.type";
-import { Backdrop, CircularProgress } from "@mui/material";
+import { Grid, Avatar, Backdrop, CircularProgress, Tooltip, ToggleButtonGroup, ToggleButton } from "@mui/material";
+import { AutoAwesomeMosaic, Image, ViewList } from "@mui/icons-material";
+import Carousel from "react-material-ui-carousel";
+import ReactPlayer from "react-player/lazy";
 
 
+function pack(data:any) {
+  const sliderItems: number = data.length > 4 ? 4 : data.length;
+  const items: Array<any> = [];
+
+  for (let i = 0; i < data.length; i += sliderItems) {
+    if (i % sliderItems === 0) {
+      items.push(
+
+        <Grid container spacing={2} key={i.toString()} sx={{"width": "700px", "height":"auto", "margin" : "0 auto"}}>
+          {data.slice(i, i + sliderItems).map((item:any, index:number) => {
+            return (
+              <Grid item xs={3} key={index} sx={{"position": "relative"}}>
+                <Link to={`/recipe/${item.recipeId}`}>
+                  <img src={item.thumbnailUrl} style={{ "width" : "128px", "height" : "auto" }} alt="" />
+                </Link>
+                <span style={{"position": "absolute", "top": "25px", "left": "25px", "color": "white"}}>{item.title}</span>
+              </Grid>
+            );
+          })}
+        </Grid>
+
+      );
+    }
+  }
+  return items;
+}
 export default function DetailView() {
   const { recipeId } = useParams();
 
@@ -14,120 +43,268 @@ export default function DetailView() {
   useEffect(() => {
     setLoading(true);
     if(recipeId) {
-      RecipeService.getRecipe(recipeId).then(setRecipe).then(() => setLoading(false));
+      RecipeService.getRecipe(recipeId)
+      .then(setRecipe)
+      .then(() => {
+        setLoading(false);
+      });
     }
   }, [recipeId])
+
+  const [recipeStepView, setRecipeStepView] = useState('image');
+  const handleRecipeStepViewChange = (event: React.MouseEvent<HTMLElement, MouseEvent>, recipeStepView: string) => setRecipeStepView(recipeStepView);
+  
+  if(loading) {
+    return (
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+      <CircularProgress color="success" />
+    </Backdrop>
+    )
+  }
+
+  if(!recipe) {
+    return (
+      <p>존재하지 않는 레시피입니다.</p>
+    )
+  }
 
   return (
     <>
       <h2>레시피 상세보기</h2>
-      {loading ? (
-          <Backdrop
-            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-            open={loading}
-          >
-          <CircularProgress color="inherit" />
-        </Backdrop>
-      ) : recipe ? (
-        <>
-          <MainPhotoWrapper>
-            <MainPhoto src={recipe.mainPhotoUrl} />
-            <UserInfo>
-              <UserInfoPhotoAnchor>
-                <UserInfoPhoto src="/logo192.png" />
-              </UserInfoPhotoAnchor>
-              <UsernameWrapper>
-                <Username>
-                  사용자 아이디 테스트 사용자 아이디
-                  <FollowButton>소식받기</FollowButton>
-                </Username>
-              </UsernameWrapper>
-            </UserInfo>
-          </MainPhotoWrapper>
 
-          <ContentWrapper>
+      <MainPhotoWrapper>
+        <MainPhoto src={recipe.mainPhotoUrl} />
+        <UserInfo>
+          <UserInfoPhotoAnchor>
+            <UserInfoPhoto src="/logo192.png" />
+          </UserInfoPhotoAnchor>
+          <UsernameWrapper>
+            <Username>
+              {recipe.nickname}
+              {
+                !(recipe.isFollowingChef) && <FollowButton>+소식받기</FollowButton>
+              }
+            </Username>
+          </UsernameWrapper>
+        </UserInfo>
+      </MainPhotoWrapper>
 
-            <h1>{recipe.title}</h1>
-            <p>{recipe.description}</p>
-            <SummaryInfo>
-              <SummaryInfoSpan src="https://recipe1.ezmember.co.kr/img/mobile/icon_man.png">{recipe.servingCount}</SummaryInfoSpan>
-              <SummaryInfoSpan src="https://recipe1.ezmember.co.kr/img/mobile/icon_time2.png">{recipe.cookingTime}</SummaryInfoSpan>
-              <SummaryInfoSpan src="https://recipe1.ezmember.co.kr/img/mobile/icon_star.png">{recipe.difficultyLevel}</SummaryInfoSpan>
-            </SummaryInfo>
+      <ContentWrapper>
 
-            <ButtonList>
-              <ButtonListAnchor>
-                <ButtonListImg src="https://recipe1.ezmember.co.kr/img/mobile/btn_view_scrap.png" />
-                <div>스크랩{" "}
-                  <b>12,345</b>
-                </div>
-              </ButtonListAnchor>
+        <h1>{recipe.title}</h1>
+        <p>{recipe.description}</p>
+        <SummaryInfo>
+          <SummaryInfoSpan src="https://recipe1.ezmember.co.kr/img/mobile/icon_man.png">{recipe.servingCount}</SummaryInfoSpan>
+          <SummaryInfoSpan src="https://recipe1.ezmember.co.kr/img/mobile/icon_time2.png">{recipe.cookingTime}</SummaryInfoSpan>
+          <SummaryInfoSpan src="https://recipe1.ezmember.co.kr/img/mobile/icon_star.png">{recipe.difficultyLevel}</SummaryInfoSpan>
+        </SummaryInfo>
 
-              <ButtonListAnchor>
-                <ButtonListImg src="https://recipe1.ezmember.co.kr/img/mobile/btn_view_talk.png" />
-                <div>공유</div>
-              </ButtonListAnchor>
-
-              <ButtonListAnchor>
-                <ButtonListImg src="https://recipe1.ezmember.co.kr/img/mobile/btn_view_re.png" />
-                <div>댓글{" "}
-                  <b>123</b>
-                </div>
-              </ButtonListAnchor>
-            </ButtonList>
-
-            <ButtonList>
-              <ButtonListAnchor>
-                <ButtonListImg src="https://recipe1.ezmember.co.kr/img/btn2_id.png"/>
-              </ButtonListAnchor>
-
-              <ButtonListAnchor>
-                <ButtonListImg src="https://recipe1.ezmember.co.kr/img/btn2_note.png"/>
-              </ButtonListAnchor>
-            </ButtonList>
-          </ContentWrapper>
-          <Line />
-          <ContentWrapper>
-            <h2>재료</h2>
-            <div>
-            {
-              recipe.ingredientGroups?.map((ingredientGroup, index, ingredientGroups) => (
-
-                <IngredientGroupDiv length={ingredientGroups.length}>[{ingredientGroup.name}]
-                <ul>
-                  {ingredientGroup.ingredients.map(ingredient => (
-                    <IngredientLi length={ingredientGroups.length}>{ingredient.name} {ingredient.amount}</IngredientLi>
-                  ))}
-                </ul>
-                </IngredientGroupDiv>
-
-              ))
-            }
+        <ButtonList>
+          <ButtonListAnchor>
+            <ButtonListImg src="https://recipe1.ezmember.co.kr/img/mobile/btn_view_scrap.png" />
+            <div>스크랩{" "}
+              <b>12,345</b>
             </div>
-          </ContentWrapper>
-          <Line />
-          <ContentWrapper>
-            <h2>조리순서</h2>
-            <ul>
-            {
-              recipe.recipeSteps && recipe.recipeSteps.map((recipeStep, index) => (
-                <li>{"Step " + (index + 1)} {recipeStep.description}
-                <img src={recipeStep.photoUrl} alt="이미지 공간"/>
-                </li>
-              ))
-            }
-            </ul>
-            <CompletionPhoto src={recipe.completionPhotoUrl}/>
-          </ContentWrapper>
-          <img src="https://recipe1.ezmember.co.kr/img/tit_tip.gif" />
-          <ContentWrapper>
-            <span>test tip test tip.</span>
+          </ButtonListAnchor>
 
-          </ContentWrapper>
-        </>
-      ) : (
-        <p>존재하지 않는 레시피입니다.</p>
-      )}
+          <ButtonListAnchor>
+            <ButtonListImg src="https://recipe1.ezmember.co.kr/img/mobile/btn_view_talk.png" />
+            <div>공유</div>
+          </ButtonListAnchor>
+
+          <ButtonListAnchor>
+            <ButtonListImg src="https://recipe1.ezmember.co.kr/img/mobile/btn_view_re.png" />
+            <div>댓글{" "}
+              <b>123</b>
+            </div>
+          </ButtonListAnchor>
+        </ButtonList>
+
+        <ButtonList>
+          
+          <ButtonListAnchor>
+            <Tooltip title="레시피ID" placement="top" arrow>
+              <ButtonListImg src="https://recipe1.ezmember.co.kr/img/btn2_id.png"/>
+            </Tooltip>
+          </ButtonListAnchor>
+
+          <ButtonListAnchor>
+            <Tooltip title="메모" placement="top" arrow>
+              <ButtonListImg src="https://recipe1.ezmember.co.kr/img/btn2_note.png"/>
+            </Tooltip>
+          </ButtonListAnchor>
+        </ButtonList>
+      </ContentWrapper>
+      <Line />
+      <ContentWrapper>
+        <h2>재료</h2>
+        <div>
+        {
+          recipe.ingredientGroups?.map((ingredientGroup, index, ingredientGroups) => (
+
+            <IngredientGroupDiv key={index} length={ingredientGroups.length}>
+              <h4>[{ingredientGroup.name}]</h4>
+            <ul>
+              {ingredientGroup.ingredients.map((ingredient, i) => (
+                <IngredientLi key={i} length={ingredientGroups.length}>{ingredient.name} {ingredient.amount}</IngredientLi>
+              ))}
+            </ul>
+            </IngredientGroupDiv>
+
+          ))
+        }
+        </div>
+      </ContentWrapper>
+      <Line />
+      {
+        recipe.knowhowVideos?.length && (
+          <>
+            <ContentWrapper>
+              <h2>노하우 영상</h2>
+              <Carousel
+                height={150}
+                animation="slide"
+                autoPlay={false}
+                cycleNavigation
+                navButtonsAlwaysVisible
+                navButtonsProps={{
+                  style: {
+                    backgroundColor: '#74b243'
+                  }
+                }}>
+              {
+                pack(recipe.knowhowVideos)
+              }
+              </Carousel>
+            </ContentWrapper>
+            <Line />
+          </>
+        ) 
+      }
+      {
+        recipe.videoUrl && (
+          <>
+            <ContentWrapper>
+              <h2>동영상</h2>
+              <ReactPlayer controls url={recipe.videoUrl} style={{"margin" : "0 auto"}}/>
+            </ContentWrapper>
+            <Line />
+          </>
+        )
+      }
+
+      <ContentWrapper>
+        <h2>조리순서</h2>
+
+        <ToggleButtonGroup
+          sx={{"float": "right"}}
+          value={recipeStepView}
+          exclusive
+          onChange={handleRecipeStepViewChange}>
+          <ToggleButton value="bigImage" aria-label="bigImage">
+            <Image />
+          </ToggleButton>
+          <ToggleButton value="image" aria-label="image">
+            <AutoAwesomeMosaic />
+          </ToggleButton>
+          <ToggleButton value="text" aria-label="text">
+            <ViewList />
+          </ToggleButton>
+        </ToggleButtonGroup>
+
+        {
+          recipe.recipeSteps?.map((recipeStep, index) => (
+            <Grid key={index} container spacing={2}>
+              <Grid item xs={1}>
+                <Avatar sx={{ bgcolor: "#74b243"}}>{index + 1}</Avatar> 
+              </Grid>
+              <Grid item xs={recipeStepView === "image" ? 7 : 11}>
+                {recipeStep.description}
+              </Grid>
+              <Grid item xs={recipeStepView === "image" ? 4 : recipeStepView === "bigImage" ? 12 : 0} sx={{"textAlign": "center"}}>
+                {
+                  recipeStep.photoUrl && (
+                  <RecipeStepPhoto
+                    src={recipeStep.photoUrl}
+                    alt=""
+                    style={recipeStepView === "image" ? {} : recipeStepView === "bigImage" ? {"width":"640px", "height": "480px"} : {"display": "none"}} />
+                  )
+                }
+              </Grid>
+            </Grid>
+          ))
+        }
+        <Carousel
+          height={480}
+          animation="slide"
+          autoPlay={false}
+          cycleNavigation
+          sx={{"width": "640px", "margin": "0 auto"}}>
+          <img src={recipe.mainPhotoUrl} alt="" style={{"width": "100%"}}/>
+          <img src={recipe.completionPhotoUrl} alt="" style={{"width": "100%"}}/>
+        </Carousel>
+        
+      </ContentWrapper>
+      <img src="https://recipe1.ezmember.co.kr/img/tit_tip.gif" alt=""/>
+      <ContentWrapper>
+        <span>{recipe.tip}</span>
+        <DateInfoDiv>
+          <DateParagraph>
+            <b>등록일: {recipe.createdAt}</b>{" | "}
+            <b>수정일: {recipe.updatedAt}</b>
+          </DateParagraph>
+          <DateNotice>저작자의 사전 동의 없이 이미지 및 문구의 무단 도용 및 복제를 금합니다.</DateNotice>
+        </DateInfoDiv>
+      </ContentWrapper>
+      <Line />
+      <ContentWrapper>
+        <h2>레시피 작성자</h2>
+        
+        <Username>
+        <Avatar src="/logo192.png"
+          style={{border: "1px solid #ddd", display:"inline-block"}}/>
+        <span>{recipe.nickname}
+        {
+          !(recipe.isFollowingChef) && <FollowButton>+소식받기</FollowButton>
+        }
+        </span>
+        </Username>
+      </ContentWrapper>
+      <Line />
+      <ContentWrapper>
+        <h2>댓글 <span style={{color: "#74b243"}}>{recipe.comments?.length}</span></h2>
+        {recipe.comments?.map(comment => (
+          <div style={{display: "flex",
+          paddingLeft: comment.level * 30 + "px",
+          paddingTop: "20px",
+          paddingBottom: "20px",
+          borderTop: "1px lightgray solid"
+          }}>
+            <Avatar
+              src={comment.profileUrl}
+              style={{border: "1px solid #ddd", display:"inline-block"}} />
+            <span>
+              <div>
+                {comment.nickname} {comment.createdAt} 
+              </div>
+              <div>
+                {comment.contents}
+              </div>
+              {
+                comment.photoUrl && (
+                <img src={comment.photoUrl}
+                  style={{ float:"left", width:"60px", height:"60px"}} />
+                )
+              }
+              
+            </span>
+          </div>
+        ))}
+        
+      </ContentWrapper>
     </>
   )
 }
@@ -170,12 +347,22 @@ const UserInfoPhotoAnchor = styled.a`
 `
 const Username = styled.span`
   position: relative;
+  display: inline-flex;
+  align-items: center;
 `
 const FollowButton = styled.button`
   margin-left:0.75em;
   position: absolute;
   left: 100%;
   white-space: nowrap;
+  border: 1px solid #74b243;
+  border-radius: 10%;
+  color: #74b243;
+  background-color: #fff;
+
+  &:hover {
+    opacity: 0.5;
+  }
 `
 
 const UsernameWrapper = styled.div`
@@ -233,13 +420,6 @@ const Line = styled.div`
   background-color: lightgray;
 `
 
-const CompletionPhoto = styled.img`
-
-  width: 640px;
-  height: 480px;
-  margin 0 auto;
-  display: block;
-`
 interface IngredientGroupDivProps {
   length: number,
   children?: ReactNode,
@@ -261,10 +441,41 @@ interface IngredientLiProps {
   className?: string
 }
 const _IngredientLi = ({length, children, className}: IngredientLiProps) => (
-  <div className={className}>{children}</div>
+  <li className={className}>{children}</li>
 );
-const IngredientLi = styled(_IngredientGroupDiv)`
+const IngredientLi = styled(_IngredientLi)`
   width: 50%;
   display: ${({length}) => length > 1 ? "block" : "inline-block"};
   list-style: none;
+`
+
+const RecipeStepPhoto = styled.img`
+  width: 256px;
+  height: 192px;
+`
+
+const DateInfoDiv = styled.div`
+  background: #f9f9f9;
+  border: 1px dashed #ccc;
+  margin: 40px 0px;
+  padding: 12px 18px 12px 18px;
+  text-align: right;
+`
+
+const DateParagraph = styled.p`
+  float: left;
+  margin: 0;
+
+  line-height: 1;
+  padding: 7px 0 0 0;
+  color: #999;
+  font-size: 13px;
+`
+
+const DateNotice = styled.span`
+  display: inline-block;
+  background: url("https://recipe1.ezmember.co.kr/img/icon_noti.png") left top no-repeat;
+  padding: 5px 0 6px 31px;
+  font-size: 13px;
+  color: #999;
 `

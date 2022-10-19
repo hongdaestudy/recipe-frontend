@@ -1,11 +1,14 @@
 import { useFormContext, useFieldArray } from "react-hook-form";
 import { FormValues } from "../../types/register.type";
 import UploadImage from "./uploadImage";
+import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
+import { IconButton, TextField } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function getPlaceholderForRecipeStepDescription(index: number) {
   switch(index % 4) {
     case 0:
-      return "예) 소고기는 기름기를 떼어네고 적당한 크기로 썰어주세요.";
+      return "예) 소고기는 기름기를 떼어내고 적당한 크기로 썰어주세요.";
     case 1:
       return "예) 준비된 양념으로 먼저 고기를 조물조물 재워 둡니다.";
     case 2:
@@ -21,31 +24,46 @@ export default function RecipeStepArray() {
   const { fields, append, remove } = useFieldArray({
     control,
     name: "recipeSteps"
-  })
+  });
+
   const newRecipeStep = {
     description: "",
-    photoUrl: ""
-  }
+    photoFileList: new DataTransfer().files
+  };
   return (
     <section>
       <h3>요리순서</h3>
       
-      <ul>
+      <ul style={{listStyle: "none"}}>
         {fields.map((item, index) => (
-          <li key={item.id}>
+          <li key={item.id} style={{display: "flex", alignItems: "center"}}>
 
-            <label>Step{index + 1}</label>
+            <label style={{color:"#74b243", verticalAlign: "top", display: "inline-block", width: "50px"}}>Step{index + 1}</label>
 
-            <textarea
+            <TextField
               {...register(`recipeSteps.${index}.description`)}
               placeholder={getPlaceholderForRecipeStepDescription(index)}
+              size="small"
+              color="success"
+              sx={{ width: '450px'}}
+              multiline
+              rows={5}
             />
-            <UploadImage name={`recipeSteps.${index}.photoUrl`} />
-            <button type="button" onClick={() => remove(index)}>요리순서 삭제</button>
+            <UploadImage name={`recipeSteps.${index}.photoFileList`} />
+            <IconButton onClick={() => remove(index)}>
+              <DeleteIcon />
+            </IconButton>
           </li>
         ))}
       </ul>
-      <button type="button" onClick={() => append(newRecipeStep)}>+ 순서 추가</button>
+      <div style={{textAlign: "center"}}>
+        <button
+          type="button"
+          onClick={() => append(newRecipeStep)}
+          style={{display:"inline-flex", alignItems: "center", border: "none", background: "none", cursor: "pointer"}}>
+          <AddCircleOutlineRoundedIcon color="success"/>순서 추가
+        </button>
+      </div>
     </section>
   )
 }
