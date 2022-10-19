@@ -4,8 +4,7 @@ import { FormValues } from '../types/register.type';
 import { Recipe } from '../types/detailView.type';
 import data from "../data.json";
 
-
-const API_URL = 'https://httpbin.org/';
+const API_URL = process.env.REACT_APP_BASE_URL;
 class RecipeService {
   getRecipeList() {
     //return axios.get(API_URL + 'get', { headers: authHeader() });

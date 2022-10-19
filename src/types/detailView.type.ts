@@ -13,10 +13,23 @@ interface RecipeStep {
 interface Tag {
   tagName: string,
 }
-
+interface knowhowVideo {
+  title: string,
+  thumbnailUrl: string
+}
+interface comment {
+  nickname: string,
+  profileUrl: string,
+  contents: string,
+  createdAt: string,
+  score?: number,
+  level: number,
+  photoUrl?: string
+}
 export interface Recipe {
   recipeId: string;
-  userProfileId?: string,
+  nickname?: string,
+  isFollowingChef?: boolean,
   title?: string,
   description?: string,
   videoUrl?: string,
@@ -34,5 +47,11 @@ export interface Recipe {
 
   ingredientGroups?: IngredientGroup[],
   recipeSteps?: RecipeStep[],
-  tags?: Tag[]
+  tags?: Tag[],
+  knowhowVideos?: knowhowVideo[],
+
+  createdAt?: string,
+  updatedAt?: string,
+
+  comments?: comment[]
 }
