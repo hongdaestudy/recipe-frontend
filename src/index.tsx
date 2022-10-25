@@ -9,10 +9,13 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Login from './component/user/login.component';
 import Join from './component/user/join.component';
+import FindCredential from './component/user/findCredential.component';
+
 import List from './component/recipe/list.component';
 import Register from './component/recipe/register.component';
 import Profile from './component/user/profile.component';
 import DetailView from './component/recipe/detailView.component';
+import Myhome from './component/mypage/myhome.component';
 
 import "./index.css";
 
@@ -29,6 +32,7 @@ root.render(
             <Route path="recipe/list" element={<List />} />
             <Route path="recipe/register" element={<Register />} />
             <Route path="profile" element={<Profile />} />
+            <Route path="myhome" element={<Myhome />} />
             <Route
               path="*"
               element={
@@ -41,6 +45,7 @@ root.render(
 
           <Route path="/login" element={<Login />} />
           <Route path="/join" element={<Join />} />
+          <Route path="/findCredential" element={<FindCredential />} />
         </Routes>
       </BrowserRouter>
     </Provider>

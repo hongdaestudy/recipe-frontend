@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import { useFormContext } from "react-hook-form";
 import { FormValues } from "../../types/register.type";
@@ -7,14 +7,16 @@ interface UploadImageProps {
   name: any, //"mainPhotoFileList" | `recipeSteps.${number}.photoFileList` | "completionPhotoFileList"
   defaultSrc?: string,
   width?: string,
-  height?: string
+  height?: string,
+  existingSrc?: string | null
 }
 
 export default function UploadImage({
   name,
   defaultSrc="https://recipe1.ezmember.co.kr/img/pic_none2.gif",
   width="128px",
-  height="128px"
+  height="128px",
+  existingSrc=null
 }: UploadImageProps) {
   const [src, setSrc] = useState<string | null>(null);
 
@@ -43,13 +45,19 @@ export default function UploadImage({
     setValue(name, new DataTransfer().files);
   }
 
+  useEffect(() => {
+   if(existingSrc)  {
+    setSrc(existingSrc);
+   } 
+  }, [existingSrc]);
+  
   return (
     <>
       <Figure>
         <Img
           width={width}
           height={height}
-          src={!src ? defaultSrc: src}
+          src={src ? src: defaultSrc}
           onClick={() => src ? () => null : fileInputRef.current?.click()}
         />
         {/*

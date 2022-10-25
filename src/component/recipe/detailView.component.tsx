@@ -3,11 +3,15 @@ import { useParams, Link } from "react-router-dom";
 import { useState, useEffect, ReactNode } from "react";
 import RecipeService from "../../services/recipe.service";
 import { Recipe } from "../../types/detailView.type";
-import { Grid, Avatar, Backdrop, CircularProgress, Tooltip, ToggleButtonGroup, ToggleButton } from "@mui/material";
+import { Grid, Avatar, Backdrop, CircularProgress, Tooltip, ToggleButtonGroup, ToggleButton, TextField, Button } from "@mui/material";
 import { AutoAwesomeMosaic, Image, ViewList } from "@mui/icons-material";
 import Carousel from "react-material-ui-carousel";
 import ReactPlayer from "react-player/lazy";
-
+import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
+import UploadImage from "./uploadImage";
+import FileService from "../../services/file.service";
+import AuthService from "../../services/auth.service";
+import CommentService from "../../services/comment.service";
 
 function pack(data:any) {
   const sliderItems: number = data.length > 4 ? 4 : data.length;
@@ -35,6 +39,11 @@ function pack(data:any) {
   }
   return items;
 }
+interface CommentForm {
+  contents:string,
+  commentPhotoFileList:FileList,
+  userId: string
+}
 export default function DetailView() {
   const { recipeId } = useParams();
 
@@ -54,6 +63,17 @@ export default function DetailView() {
   const [recipeStepView, setRecipeStepView] = useState('image');
   const handleRecipeStepViewChange = (event: React.MouseEvent<HTMLElement, MouseEvent>, recipeStepView: string) => setRecipeStepView(recipeStepView);
   
+  const methods = useForm<CommentForm>();
+  const { register, handleSubmit } = methods;
+  const onSubmit: SubmitHandler<CommentForm> = async (data, e) => {
+    console.log(data);
+    if(data.commentPhotoFileList.length){
+      await FileService.upload(data.commentPhotoFileList[0]);
+    }
+    data.userId = AuthService.getCurrentUser().userId;
+
+    await CommentService.register(data);
+  }
   if(loading) {
     return (
       <Backdrop
@@ -276,13 +296,14 @@ export default function DetailView() {
       <Line />
       <ContentWrapper>
         <h2>댓글 <span style={{color: "#74b243"}}>{recipe.comments?.length}</span></h2>
-        {recipe.comments?.map(comment => (
+        {recipe.comments?.map((comment, index) => (
           <div style={{display: "flex",
           paddingLeft: comment.level * 30 + "px",
           paddingTop: "20px",
           paddingBottom: "20px",
           borderTop: "1px lightgray solid"
-          }}>
+          }}
+          key={index}>
             <Avatar
               src={comment.profileUrl}
               style={{border: "1px solid #ddd", display:"inline-block"}} />
@@ -296,14 +317,43 @@ export default function DetailView() {
               {
                 comment.photoUrl && (
                 <img src={comment.photoUrl}
-                  style={{ float:"left", width:"60px", height:"60px"}} />
+                  style={{ float:"left", width:"60px", height:"60px"}} alt=""/>
                 )
               }
               
             </span>
           </div>
         ))}
-        
+        <FormProvider {...methods}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <CommentDiv>
+              <UploadImage width="108px" height="108px" name="commentPhotoFileList"/>
+              <TextField
+                {...register("contents", { required: true })}
+                placeholder="댓글을 남겨주세요."
+                variant="outlined"
+                size="small"
+                color="success"
+                sx={{ width: '600px'}}
+                multiline
+                rows={4}
+                required />
+                <Button
+                  variant="contained"
+                  size="large"
+                  color="success"
+                  sx={{height: "108px"}}
+                  onClick={handleSubmit(onSubmit)}>등록</Button>
+            </CommentDiv>
+          </form>
+        </FormProvider>
+      </ContentWrapper>
+      <Line />
+      <ContentWrapper>
+        <img src="https://recipe1.ezmember.co.kr/img/mobile/icon_tag.png" alt="" style={{verticalAlign:"bottom"}}/>
+        {recipe.tags?.map(item => (
+          <Button key={item.tagName} variant="outlined" color="success">#{item.tagName}</Button>
+        ))}
       </ContentWrapper>
     </>
   )
@@ -478,4 +528,15 @@ const DateNotice = styled.span`
   padding: 5px 0 6px 31px;
   font-size: 13px;
   color: #999;
+`
+
+
+const CommentDiv = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  > label {
+    width: 120px;
+    display: inline-block;
+  }
 `
