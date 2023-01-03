@@ -5,6 +5,7 @@ import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRou
 import { IconButton, TextField } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 
+
 function getPlaceholderForRecipeStepDescription(index: number) {
   switch(index % 4) {
     case 0:
@@ -28,7 +29,8 @@ export default function RecipeStepArray() {
 
   const newRecipeStep = {
     description: "",
-    photoFileList: new DataTransfer().files
+    photoFileList: new DataTransfer().files,
+    sort:0
   };
   return (
     <section>
@@ -37,7 +39,8 @@ export default function RecipeStepArray() {
       <ul style={{listStyle: "none"}}>
         {fields.map((item, index) => (
           <li key={item.id} style={{display: "flex", alignItems: "center"}}>
-
+          <input {...register(`recipeSteps.${index}.sort`)} type="hidden" value={index}/>
+            
             <label style={{color:"#74b243", verticalAlign: "top", display: "inline-block", width: "50px"}}>Step{index + 1}</label>
 
             <TextField

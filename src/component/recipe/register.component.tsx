@@ -1,5 +1,5 @@
 import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
-import { FormValues, defaultValues, Tag } from "../../types/register.type"
+import { FormValues, defaultValues, RecipeTags } from "../../types/register.type"
 import IngredientGroupArray from "./ingredientGroupArray";
 import RecipeStepArray from "./recipeStepArray";
 import RecipeService from "../../services/recipe.service";
@@ -10,6 +10,7 @@ import styled from "styled-components";
 import FileService from "../../services/file.service";
 import { Button, Dialog, DialogTitle, LinearProgress, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+
 
 export default function Register() {
   const methods = useForm<FormValues>({
@@ -47,7 +48,7 @@ export default function Register() {
     //ADD FILE_ID
     data = {
       ...data,
-      tags
+      recipeTags
     }
     console.log(data);
     RecipeService.register(data).then(response=> {
@@ -58,11 +59,12 @@ export default function Register() {
   }
   const { register, handleSubmit, formState: { errors } } = methods;
 
-  const [tags, setTags] = useState<Tag[]>([]);
-  const onTagsChange = (tags: string[]) => {
-    setTags(
-      tags.map(str => ({
-        tagName: str
+  const [recipeTags, setrecipeTags] = useState<RecipeTags[]>([]);
+  const onTagsChange = (recipeTags: string[]) => {
+    setrecipeTags(
+      recipeTags.map((str,index) => ({
+        name: str,
+        sort: index
       })
     ));
   }
@@ -73,6 +75,7 @@ export default function Register() {
       
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
+        <input  {...register("status")} type="hidden" value="IN_PROGRESS"/>
           <ContentWrapper>
             <h3>기본정보</h3>
 
@@ -162,22 +165,22 @@ export default function Register() {
 
             <LabeledDiv>
             <label>요리정보</label>
-            <Select {...register("servingCount")}>
+            <Select {...register(`information.servingCount`)}>
               <option>인원</option>
-              <option value="1인분">1인분</option>
-              <option value="2인분">2인분</option>
+              <option value="ONE">1인분</option>
+              <option value="TWO">2인분</option>
             </Select>
 
-            <Select {...register("cookingTime")}>
+            <Select {...register(`information.cookingTime`)}>
               <option>시간</option>
-              <option value="5분이내">5분이내</option>
-              <option value="10분이내">10분이내</option>
+              <option value="FIVE_MINUTES_LESS">5분이내</option>
+              <option value="TEN_MINUTES_LESS">10분이내</option>
             </Select>
 
-            <Select {...register("difficultyLevel")}>
+            <Select {...register(`information.difficultyLevel`)}>
               <option>난이도</option>
-              <option value="아무나">아무나</option>
-              <option value="초급">초급</option>
+              <option value="EASY">쉬움</option>		          
+              <option value="NORMAL">보통</option>
             </Select>
 
             </LabeledDiv>
