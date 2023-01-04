@@ -17,39 +17,44 @@ import Profile from './component/user/profile.component';
 import DetailView from './component/recipe/detailView.component';
 import Myhome from './component/mypage/myhome.component';
 
-import "./index.css";
+import './index.css';
+// theme 세팅
+import { ThemeProvider } from 'styled-components';
+import { theme } from './theme/themes';
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById('root') as HTMLElement,
 );
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<App />}>
-            <Route path="recipe/:recipeId" element={<DetailView />} />
-            <Route path="recipe/list" element={<List />} />
-            <Route path="recipe/register" element={<Register />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="myhome" element={<Myhome />} />
-            <Route
-              path="*"
-              element={
-                <main style={{ padding: "1rem" }}>
-                  <p>There's nothing here!</p>
-                </main>
-              }
-            />
-          </Route>
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<App />}>
+              <Route path="recipe/:recipeId" element={<DetailView />} />
+              <Route path="recipe/list" element={<List />} />
+              <Route path="recipe/register" element={<Register />} />
+              <Route path="profile" element={<Profile />} />
+              <Route path="myhome" element={<Myhome />} />
+              <Route
+                path="*"
+                element={
+                  <main style={{ padding: '1rem' }}>
+                    <p>There's nothing here!</p>
+                  </main>
+                }
+              />
+            </Route>
 
-          <Route path="/login" element={<Login />} />
-          <Route path="/join" element={<Join />} />
-          <Route path="/findCredential" element={<FindCredential />} />
-        </Routes>
-      </BrowserRouter>
+            <Route path="/login" element={<Login />} />
+            <Route path="/join" element={<Join />} />
+            <Route path="/findCredential" element={<FindCredential />} />
+          </Routes>
+        </BrowserRouter>
+      </ThemeProvider>
     </Provider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function
