@@ -2,17 +2,25 @@ export interface Ingredient {
   name: string,
   amount: string
 }
+export interface RecipeInformation {
+  servingCount: string,
+  cookingTime: string,
+  difficultyLevel: string
+}
 export interface IngredientGroup {
   name: string,
   ingredients: Ingredient[]
 }
 export interface RecipeStep {
   description: string,
-  photoFileList: FileList
+  photoFileList: FileList,
+  sort:number
+
 }
-export interface Tag {
-  tagName: string,
-}
+export interface RecipeTags {
+  name: string,
+  sort: number
+}	
 export interface FormValues {
   file: any,
   userProfileId: string,
@@ -20,9 +28,7 @@ export interface FormValues {
   description: string,
   videoUrl: string,
   mainPhotoFileList: FileList,
-  servingCount: string,
-  cookingTime: string,
-  difficultyLevel: string,
+  information:RecipeInformation,
   completionPhotoFileList: FileList,
   tip: string,
   //status backend에서?
@@ -30,10 +36,10 @@ export interface FormValues {
   situation: string,
   method: string,
   ingredient: string,
-
+  status: string,
   ingredientGroups: IngredientGroup[],
   recipeSteps: RecipeStep[],
-  tags: Tag[]
+  recipeTags: RecipeTags[]
 }
 
 export const defaultValues = {
@@ -59,7 +65,8 @@ export const defaultValues = {
   recipeSteps: [
     {
       description: "",
-      photoFileList: new DataTransfer().files
+      photoFileList: new DataTransfer().files,
+      sort:0
     }
   ]
 };
