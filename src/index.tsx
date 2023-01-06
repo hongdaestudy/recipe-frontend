@@ -19,7 +19,7 @@ import Myhome from './component/mypage/myhome.component';
 
 import './index.css';
 // theme 세팅
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from '@mui/material/styles';
 import { theme } from './theme/themes';
 
 const root = ReactDOM.createRoot(
