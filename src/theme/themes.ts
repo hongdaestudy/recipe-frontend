@@ -10,11 +10,6 @@ export const theme = createTheme({
   // typography: {
   //   pxToRem: (size: number) => `${(size / htmlFontSize) * coef}rem`,
   // },
-  // palette: {
-  //   text: '#304156',
-  //   white: '#FFFFFF',
-  //   skyBlue: '#2EB7FF',
-  // },
 });
 
 export type Theme = typeof theme;
