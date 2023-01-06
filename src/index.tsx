@@ -21,6 +21,7 @@ import './index.css';
 // theme 세팅
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from './theme/themes';
+import NotFoundPage from './pages/404';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -37,19 +38,12 @@ root.render(
               <Route path="recipe/register" element={<Register />} />
               <Route path="profile" element={<Profile />} />
               <Route path="myhome" element={<Myhome />} />
-              <Route
-                path="*"
-                element={
-                  <main style={{ padding: '1rem' }}>
-                    <p>There's nothing here!</p>
-                  </main>
-                }
-              />
             </Route>
 
             <Route path="/login" element={<Login />} />
             <Route path="/join" element={<Join />} />
             <Route path="/findCredential" element={<FindCredential />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
