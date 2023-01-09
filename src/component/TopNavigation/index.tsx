@@ -1,23 +1,31 @@
-import React, { useId } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useId, useState } from 'react';
+import { Link, Pathname, To } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const navRoutePath = {
-  추천: '/recomment',
-  분류: '/classification',
-  랭킹: '/ranking',
-  클래스: '/class',
+  추천: '/recomment' as Pathname,
+  분류: '/classification' as Pathname,
+  랭킹: '/ranking' as Pathname,
+  클래스: '/class' as Pathname,
 };
 
 export const TopNavigation = () => {
+  const [activeLink, setActiveLink] = useState('추천');
   const uniqueId = useId();
+
+  const clickActive = (id: string) => {
+    setActiveLink(id);
+  };
+
   return (
     <NavigationWrapper>
       <Ul>
         {Object.keys(navRoutePath).map(nav => {
           return (
-            <Li key={`${uniqueId}_${nav}`}>
-              <LinkText to={`/${[nav]}`}>{nav}</LinkText>
+            <Li key={`${uniqueId}_${nav}`} onClick={() => clickActive(nav)}>
+              <LinkText linkActive={nav === activeLink} to="/">
+                {nav}
+              </LinkText>
             </Li>
           );
         })}
@@ -53,12 +61,13 @@ const Ul = styled.ul`
 const Li = styled.li`
   list-style: none;
   width: 100%;
+  /* @ts-ignore */
 `;
 
-const LinkText = styled(Link)`
+const LinkText = styled(Link)<{ linkActive?: boolean }>`
   text-decoration: none;
   font-size: 18px;
-  color: #fff;
+  color: ${({ linkActive }) => (linkActive === true ? 'yellow' : '#fff')};
   display: block;
 `;
 
