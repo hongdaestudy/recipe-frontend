@@ -46,7 +46,9 @@ h6 {
 .box {
   display: flex;
   flex-flow: column;
-  height: 100%;
+  justify-content: center;
+  width: 100%;
+  min-width: 1280px;
 }
 
 .box .row.header {
@@ -56,10 +58,6 @@ h6 {
   flex-shrink: 1,
   flex-basis: auto
   */
-}
-
-.box .row.content {
-  flex: 1 1 auto;
 }
 
 .box .row.footer {

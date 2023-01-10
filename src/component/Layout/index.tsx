@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Footer } from '../Footer';
 import { Header } from '../Header';
 
 interface ILayout {
@@ -15,15 +16,27 @@ interface ILayout {
 
 export const Layout = ({ children }: ILayout) => {
   return (
-    <Container>
+    <div className="box">
       <Header />
-      {children}
-    </Container>
+      <Container>{children}</Container>
+      <Footer />
+    </div>
   );
 };
 
 const Container = styled.div`
+  min-width: 1280px;
   height: 100vh;
-  width: 100%;
-  position: relative;
+
+  margin-top: 16px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+  border: 1px solid #e6e7e8;
+  padding: 0 0 20px 0;
+  &::-webkit-scrollbar {
+    display: none;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 `;
