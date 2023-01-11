@@ -31,6 +31,7 @@ root.render(
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <BrowserRouter>
+          {/* <App /> 만 불러오기  */}
           <Routes>
             <Route path="/" element={<App />}>
               <Route path="recipe/:recipeId" element={<DetailView />} />
