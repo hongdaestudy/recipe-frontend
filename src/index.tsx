@@ -19,8 +19,8 @@ import Myhome from './component/mypage/myhome.component';
 
 import './index.css';
 // theme 세팅
-// import { ThemeProvider } from '@mui/material/styles';
-// import { theme } from './theme/themes';
+import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
+import { muiTheme } from './theme/themes';
 import { ThemeProvider } from 'styled-components';
 
 // theme
@@ -33,25 +33,27 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          {/* <App /> 만 불러오기  */}
-          <Routes>
-            <Route path="/" element={<App />}>
-              <Route path="recipe/:recipeId" element={<DetailView />} />
-              <Route path="recipe/list" element={<List />} />
-              <Route path="recipe/register" element={<Register />} />
-              <Route path="profile" element={<Profile />} />
-              <Route path="myhome" element={<Myhome />} />
-            </Route>
+      <MuiThemeProvider theme={muiTheme}>
+        <ThemeProvider theme={theme}>
+          <BrowserRouter>
+            {/* <App /> 만 불러오기  */}
+            <Routes>
+              <Route path="/" element={<App />}>
+                <Route path="recipe/:recipeId" element={<DetailView />} />
+                <Route path="recipe/list" element={<List />} />
+                <Route path="recipe/register" element={<Register />} />
+                <Route path="profile" element={<Profile />} />
+                <Route path="myhome" element={<Myhome />} />
+              </Route>
 
-            <Route path="/login" element={<Login />} />
-            <Route path="/join" element={<Join />} />
-            <Route path="/findCredential" element={<FindCredential />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </BrowserRouter>
-      </ThemeProvider>
+              <Route path="/login" element={<Login />} />
+              <Route path="/join" element={<Join />} />
+              <Route path="/findCredential" element={<FindCredential />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </BrowserRouter>
+        </ThemeProvider>
+      </MuiThemeProvider>
     </Provider>
   </React.StrictMode>,
 );

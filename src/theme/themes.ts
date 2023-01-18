@@ -1,5 +1,7 @@
 // import { PaletteMode } from '@mui/material';
-// import { createTheme } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
+
+export const muiTheme = createTheme({});
 
 export const theme = {
   text: '#304156',
