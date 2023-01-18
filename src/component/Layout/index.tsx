@@ -16,18 +16,20 @@ interface ILayout {
 
 export const Layout = ({ children }: ILayout) => {
   return (
-    <div className="box">
-      <Header />
-      <Container>{children}</Container>
+    <>
+      <div className="box">
+        <Header />
+        <Container>{children}</Container>
+      </div>
       <Footer />
-    </div>
+    </>
   );
 };
 
 const Container = styled.div`
   min-width: 1280px;
-  height: 100vh;
-
+  position: relative;
+  /* height: 100vh; */
   margin-top: 16px;
   margin-left: auto;
   margin-right: auto;

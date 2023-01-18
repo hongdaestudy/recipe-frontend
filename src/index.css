@@ -49,6 +49,8 @@ h6 {
   justify-content: center;
   width: 100%;
   min-width: 1280px;
+
+  position: relative;
 }
 
 .box .row.header {

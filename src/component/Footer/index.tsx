@@ -27,6 +27,9 @@ const HalpWrapper = styled(FlexRow)``;
 const FooterWrapper = styled.footer`
   display: flex;
   justify-content: center;
+  /* position: fixed;
+  bottom: 0;
+  z-index: 999; */
   align-items: center;
   padding: 24px;
   width: 100%;
