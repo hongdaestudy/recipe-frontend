@@ -14,7 +14,7 @@ interface IIconProps {
   icon?: 'login' | 'profile' | 'recipe';
 }
 
-export const UserIcon = ({ icon }: IIconProps): ReactElement => {
+export const UserIcon = (): ReactElement => {
   const navigate = useNavigate();
 
   const goUrl = (path: string) => {
@@ -23,6 +23,7 @@ export const UserIcon = ({ icon }: IIconProps): ReactElement => {
 
   return (
     <Wrapper>
+      {/* user 인증 확인 후 ui 변경 */}
       <Round
         onClick={() => goUrl('/login')}
         src="/assets/icon_user.png"
@@ -31,7 +32,7 @@ export const UserIcon = ({ icon }: IIconProps): ReactElement => {
 
       <Round
         // 다른 팝업 창을 띄운다음 두가지 path를 보여 준다.
-        onClick={() => goUrl('/recipe-register')}
+        onClick={() => goUrl('/recipe/register')}
         src="/assets/recipe_enroll.png"
         alt="레시피 등록"
       />

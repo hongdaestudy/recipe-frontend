@@ -3,8 +3,7 @@ import { Link, Pathname, To } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const navRoutePath = {
-  추천: '/recomment' as Pathname,
-  분류: '/classification' as Pathname,
+  분류: '/recipe/list' as Pathname,
   랭킹: '/ranking' as Pathname,
   클래스: '/class' as Pathname,
 };
@@ -20,10 +19,10 @@ export const TopNavigation = () => {
   return (
     <NavigationWrapper>
       <Ul>
-        {Object.keys(navRoutePath).map(nav => {
+        {Object.entries(navRoutePath).map(([nav, path]) => {
           return (
             <Li key={`${uniqueId}_${nav}`} onClick={() => clickActive(nav)}>
-              <LinkText linkactive={nav.toString() === activeLink} to="/">
+              <LinkText linkactive={nav.toString() === activeLink} to={path}>
                 {nav}
               </LinkText>
             </Li>

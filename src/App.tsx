@@ -4,18 +4,19 @@ import AuthService from './services/auth.service';
 import styled from 'styled-components';
 
 import { Layout } from './component/Layout';
+import { useRouter } from './app/hooks/useRouter';
 export default function App() {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const handleLogout = () => {
     AuthService.logout();
-    navigate('/login');
+    router.push('/login');
   };
   useEffect(() => {
     if (!AuthService.getCurrentUser()) {
-      navigate('/login');
+      router.push('/login');
     }
-  }, [navigate]);
+  }, []);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -25,7 +26,7 @@ export default function App() {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
-  // router 구성 하고
+
   return (
     <Layout>
       <Outlet />

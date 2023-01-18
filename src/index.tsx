@@ -39,8 +39,9 @@ root.render(
             {/* <App /> 만 불러오기  */}
             <Routes>
               <Route path="/" element={<App />}>
-                <Route path="recipe/:recipeId" element={<DetailView />} />
                 <Route path="recipe/list" element={<List />} />
+                <Route path="recipe/:recipeId" element={<DetailView />} />
+
                 <Route path="recipe/register" element={<Register />} />
                 <Route path="profile" element={<Profile />} />
                 <Route path="myhome" element={<Myhome />} />

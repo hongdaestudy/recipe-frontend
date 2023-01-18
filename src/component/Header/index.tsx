@@ -35,7 +35,7 @@ export const Header = () => {
             </div>
           </SearchForm>
         </SearchWrapper>
-        <UserIcon icon="login" />
+        <UserIcon />
       </NestWrapper>
       <TopNavigation />
     </HeadWrapper>

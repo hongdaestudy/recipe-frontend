@@ -1,23 +1,21 @@
 //import axios from "axios";
 //const API_URL = process.env.REACT_APP_BASE_URL;
 
-
 interface LoginResultType {
   data: {
-    userId: string,
-    email: string,
-    nickname: string,
-    accessToken: string,
-    message: string
-  }
+    userId: string;
+    email: string;
+    nickname: string;
+    accessToken: string;
+    message: string;
+  };
 }
 interface JoinResultType {
   data: {
-    message: string,
-    successful: boolean
-  }
+    message: string;
+    successful: boolean;
+  };
 }
-
 
 class AuthService {
   login(userId: string, password: string) {
@@ -35,21 +33,20 @@ class AuthService {
       });
       */
     return new Promise<LoginResultType>((resolve, reject) => {
-      setTimeout(()=> {
+      setTimeout(() => {
         const response = {
           data: {
             userId: 'admin',
             email: 'admin@recipe.com',
             nickname: 'test',
             accessToken: 'qwer1234',
-            message: 'success'
-          }
+            message: 'success',
+          },
         };
-        localStorage.setItem("user", JSON.stringify(response.data));
-        if(userId === 'admin' && password === 'admin')  {
+        localStorage.setItem('user', JSON.stringify(response.data));
+        if (userId === 'admin' && password === 'admin') {
           resolve(response);
-        }
-        else {
+        } else {
           reject({
             response: {
               data: {
@@ -57,20 +54,18 @@ class AuthService {
                 email: '',
                 nickname: '',
                 accessToken: '',
-                message: 'failed to login'
-              }
-            }
+                message: 'failed to login',
+              },
+            },
           });
         }
       }, 1000);
-    })
-      
+    });
   }
   logout() {
-    localStorage.removeItem("user");
+    localStorage.removeItem('user');
   }
 
-  
   join(userId: string, email: string, password: string) {
     /*
     return axios.post(API_URL + "signup", {
@@ -79,20 +74,19 @@ class AuthService {
       password
     });
     */
-    return new Promise<JoinResultType>((resolve) => {
-      setTimeout(()=> {
+    return new Promise<JoinResultType>(resolve => {
+      setTimeout(() => {
         resolve({
           data: {
-            message: "SUCCESS",
-            successful: true
-          }
+            message: 'SUCCESS',
+            successful: true,
+          },
         });
       }, 1000);
-    })
-    
+    });
   }
   getCurrentUser() {
-    const userStr = localStorage.getItem("user");
+    const userStr = localStorage.getItem('user');
     if (userStr) return JSON.parse(userStr);
     return null;
   }

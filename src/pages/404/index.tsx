@@ -1,11 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRouter } from '../../app/hooks/useRouter';
 import { ButtonWrapper, GoHomeBtn, TextWrapper, Wrapper } from './styles';
 
 const NotFoundPage = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const goHome = () => {
-    navigate('/');
+    router.push('/');
   };
   return (
     <Wrapper>
