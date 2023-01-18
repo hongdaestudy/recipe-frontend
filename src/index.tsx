@@ -19,7 +19,11 @@ import Myhome from './component/mypage/myhome.component';
 
 import './index.css';
 // theme 세팅
-import { ThemeProvider } from '@mui/material/styles';
+// import { ThemeProvider } from '@mui/material/styles';
+// import { theme } from './theme/themes';
+import { ThemeProvider } from 'styled-components';
+
+// theme
 import { theme } from './theme/themes';
 import NotFoundPage from './pages/404';
 

@@ -23,7 +23,7 @@ export const TopNavigation = () => {
         {Object.keys(navRoutePath).map(nav => {
           return (
             <Li key={`${uniqueId}_${nav}`} onClick={() => clickActive(nav)}>
-              <LinkText linkActive={nav === activeLink} to="/">
+              <LinkText linkactive={nav.toString() === activeLink} to="/">
                 {nav}
               </LinkText>
             </Li>
@@ -61,19 +61,24 @@ const Ul = styled.ul`
 const Li = styled.li`
   list-style: none;
   width: 100%;
+  vertical-align: middle;
   /* @ts-ignore */
 `;
 
-const LinkText = styled(Link)<{ linkActive?: boolean }>`
+const LinkText = styled(Link)<{ linkactive?: boolean }>`
   text-decoration: none;
+  text-align: center;
   font-size: 18px;
-  color: ${({ linkActive }) => (linkActive === true ? 'yellow' : '#fff')};
+  transform: translateY(-5px);
+  color: ${({ linkactive }) => (linkactive === true ? 'yellow' : '#fff')};
   display: block;
 `;
 
 const DropDownText = styled.div`
   text-decoration: none;
   font-size: 18px;
+  transform: translateY(-5.5px);
+
   color: #fff;
   display: block;
 `;
