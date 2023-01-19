@@ -1,5 +1,4 @@
 import axios from 'axios';
-import authHeader from './auth-header';
 const API_URL = process.env.REACT_APP_BASE_URL;
 
 class UserService {
@@ -8,7 +7,7 @@ class UserService {
     return [];
   }
   getUserBoard() {
-    //return axios.get(API_URL + 'user', { headers: authHeader() });
+    //return axios.get(API_URL + 'user');
     return [];
   }
 }

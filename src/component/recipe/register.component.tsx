@@ -26,33 +26,59 @@ export default function Register() {
     //console.log(e);
     let count = 0;
     const recipeStepsWithPhotos = data.recipeSteps.filter(recipeStep => recipeStep.photoFileList.length !== 0);
-    let totalCount = recipeStepsWithPhotos.length + (data.completionPhotoFileList.length > 0 ? 2 : 1);
-    await FileService.upload(data.mainPhotoFileList[0]);
-    count++;
-    setTotalProgress(count / totalCount * 100);
+    const totalCount =
+      recipeStepsWithPhotos.length +
+      (data.completionPhotoFileList.length > 0 ? 2 : 1);
 
-    if(data.completionPhotoFileList.length > 0) {
-      await FileService.upload(data.completionPhotoFileList[0]);
-      count++;
-      setTotalProgress(count / totalCount * 100);
-    }
-    
-    for(const recipeStep of data.recipeSteps) {
-      if(recipeStep.photoFileList.length > 0) {
-        await FileService.upload(recipeStep.photoFileList[0]);
+    let response = null;
+    try {
+      response = await FileService.upload(data.mainPhotoFileList[0]);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      if (response?.status === 200) {
         count++;
-        setTotalProgress(count / totalCount * 100);
+      }
+    }
+
+    setTotalProgress((count / totalCount) * 100);
+
+    if (data.completionPhotoFileList.length > 0) {
+      try {
+        response = await FileService.upload(data.completionPhotoFileList[0]);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        if (response?.status === 200) {
+          count++;
+        }
+      }
+      setTotalProgress((count / totalCount) * 100);
+    }
+
+    for (const recipeStep of data.recipeSteps) {
+      if (recipeStep.photoFileList.length > 0) {
+        try {
+          response = await FileService.upload(recipeStep.photoFileList[0]);
+        } catch (error) {
+          console.error(error);
+        } finally {
+          if (response?.status === 200) {
+            count++;
+          }
+        }
+        setTotalProgress((count / totalCount) * 100);
       }
     }
     //DELETE FILELIST
     //ADD FILE_ID
     data = {
       ...data,
-      recipeTags
-    }
+      recipeTags,
+    };
     console.log(data);
     RecipeService.register(data).then(response=> {
-      console.log(JSON.parse(response.data.data));
+      console.log(response);
 
       setUploading(false);
     });
