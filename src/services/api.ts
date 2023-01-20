@@ -1,6 +1,10 @@
 import axios from 'axios';
 import TokenService from './token.service';
-const API_URL = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_BASE_URL : '';
+const API_URL =
+  process.env.NODE_ENV === 'production'
+    ? process.env.REACT_APP_BASE_URL_DEV
+    : process.env.REACT_APP_BASE_URL_LOCAL;
+
 const instance = axios.create({
   baseURL: API_URL,
   headers: {
