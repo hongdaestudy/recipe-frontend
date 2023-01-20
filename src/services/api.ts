@@ -1,8 +1,8 @@
 import axios from 'axios';
 import TokenService from './token.service';
-
+const API_URL = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_BASE_URL : '';
 const instance = axios.create({
-  // baseURL: "http://localhost:8080/api",
+  baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -11,7 +11,7 @@ const instance = axios.create({
 instance.interceptors.request.use(
   config => {
     const token = TokenService.getLocalAccessToken();
-    if (token && config.headers) {
+    if (token && config.headers && config.url !== '/api/auth/login') {
       config.headers['Authorization'] = 'Bearer ' + token; // for Spring Boot back-end
       // config.headers["x-access-token"] = token; // for Node.js Express back-end
     }
