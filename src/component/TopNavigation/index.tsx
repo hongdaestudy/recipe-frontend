@@ -1,29 +1,40 @@
-import React, { useId, useState } from 'react';
-import { Link, Pathname, To } from 'react-router-dom';
+import React, { useEffect, useId, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const navRoutePath = {
-  분류: '/recipe/list' as Pathname,
-  랭킹: '/ranking' as Pathname,
-  클래스: '/class' as Pathname,
+  '/recipe/list': '분류',
+  '/ranking': '랭킹',
+  '/class': '클래스',
 };
 
 export const TopNavigation = () => {
-  const [activeLink, setActiveLink] = useState('추천');
+  const [activeLink, setActiveLink] = useState('');
   const uniqueId = useId();
 
   const clickActive = (id: string) => {
     setActiveLink(id);
   };
+  const location = useLocation();
+
+  // nav 와 active link 가 같지 않으면 active link를 변경
+  // navRoutePath 설정에 맞는 타입값으로 변경 keyof typeof 로 object type setting
+  useEffect(() => {
+    const { pathname } = location;
+    if (pathname !== activeLink) {
+      const pathName = pathname as string;
+      setActiveLink(navRoutePath[pathName as keyof typeof navRoutePath]);
+    }
+  }, [activeLink, location.pathname]);
 
   return (
     <NavigationWrapper>
       <Ul>
         {Object.entries(navRoutePath).map(([nav, path]) => {
           return (
-            <Li key={`${uniqueId}_${nav}`} onClick={() => clickActive(nav)}>
-              <LinkText linkactive={nav.toString() === activeLink} to={path}>
-                {nav}
+            <Li key={`${uniqueId}_${nav}`} onClick={() => clickActive(path)}>
+              <LinkText linkactive={path.toString() === activeLink} to={nav}>
+                {path}
               </LinkText>
             </Li>
           );

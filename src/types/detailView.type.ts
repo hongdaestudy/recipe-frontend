@@ -44,7 +44,8 @@ export interface Recipe {
   situation?: string;
   method?: string;
   ingredient?: string;
-
+  grade?: number;
+  isNew?: boolean;
   ingredientGroups?: IngredientGroup[];
   recipeSteps?: RecipeStep[];
   tags?: Tag[];

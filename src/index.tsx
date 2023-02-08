@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { store } from './app/store';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import Login from './component/user/login.component';
 import Join from './component/user/join.component';
@@ -38,7 +38,12 @@ root.render(
           <BrowserRouter>
             {/* <App /> 만 불러오기  */}
             <Routes>
+              <Route
+                path="/"
+                element={<Navigate replace to="/recipe/list" />}
+              />
               <Route path="/" element={<App />}>
+                {/* }> */}
                 <Route path="recipe/list" element={<List />} />
                 <Route path="recipe/:recipeId" element={<DetailView />} />
 

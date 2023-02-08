@@ -59,6 +59,7 @@ export default function List() {
 
 const UpWrapper = styled(FlexBox)`
   width: 100%;
+  margin: 5px 8px 20px 0;
 `;
 
 const Head1 = styled.h1`
