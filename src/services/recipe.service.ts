@@ -7,7 +7,7 @@ class RecipeService {
   getRecipeList() {
     //return axios.get(API_URL + 'get', { headers: authHeader() });
     return new Promise<Recipe[]>(resolve => {
-      setTimeout(()=> {
+      setTimeout(() => {
         resolve(data);
       }, 300);
     });
@@ -15,8 +15,8 @@ class RecipeService {
 
   getRecipe(recipeId: string) {
     //return axios.get(API_URL + 'get', { headers: authHeader() });
-    return new Promise<Recipe|undefined>((resolve) => {
-      setTimeout(()=> {
+    return new Promise<Recipe | undefined>(resolve => {
+      setTimeout(() => {
         resolve(data.find(recipe => recipe.recipeId === recipeId));
       }, 300);
     });

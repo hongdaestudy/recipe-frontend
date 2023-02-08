@@ -71,3 +71,8 @@ h6 {
   border-top: 1px solid #dcdcdc;
   flex: 0 1 40px;
 }
+
+img,
+button {
+  cursor: pointer;
+}
