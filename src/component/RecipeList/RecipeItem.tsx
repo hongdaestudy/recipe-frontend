@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Recipe } from '../../types/detailView.type';
 import FlexBox from '../Flex';
+import { StarScore } from '../StarScore';
 
 interface IProps {
   recipe: Recipe;
@@ -24,8 +25,9 @@ export const RecipeItem = ({ recipe, onClick }: IProps) => {
         <Span>{recipe.nickname}</Span>
         {/* 별표 점수 추가 해야함 */}
         <FlexBox style={{ marginTop: '7px' }}>
-          <RedNewSpan>NEW</RedNewSpan>
-          {recipe.isNew ? <RedNewSpan>NEW</RedNewSpan> : null}
+          <StarScore score={5} />
+          {/* <RedNewSpan>NEW</RedNewSpan> */}
+          {recipe.comments?.length === 0 ? <RedNewSpan>NEW</RedNewSpan> : null}
           <GraySpan>조회수 {155}</GraySpan>
         </FlexBox>
       </FlexBox>
