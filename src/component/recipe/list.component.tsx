@@ -12,7 +12,7 @@ export default function List() {
   const [recipeList, setRecipeList] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // hook으로 변환해서 redux 에 저장
+  // redux 에 저장
   const getRecipeData = async () => {
     setLoading(true);
     const response = await RecipeService.getRecipeList();
