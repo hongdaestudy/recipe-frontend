@@ -41,8 +41,8 @@ type TextAreaProps = {
   size?: Size | 'small';
   color?: Color | '#304156';
   placeholder?: string;
-  ref?: Ref<HTMLTextAreaElement>;
-  onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+  ref?: Ref<HTMLTextAreaElement | HTMLInputElement>;
+  onChange?: (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void;
   error?: string;
   style?: CSSProperties;
   height?: number;
@@ -60,7 +60,7 @@ type TextAreaComponent = <C extends React.ElementType>(
   Props: ComponentPropsWithRef<C, TextAreaProps>,
 ) => React.ReactElement | null;
 
-const TextArea: TextAreaComponent = React.forwardRef(
+const Input: TextAreaComponent = React.forwardRef(
   <C extends React.ElementType = 'textarea'>(
     {
       as,
@@ -78,8 +78,22 @@ const TextArea: TextAreaComponent = React.forwardRef(
   ) => {
     const Component = as || 'textarea';
     const interalStyles = color ? { styles: { ...style, color } } : {};
+    if (as === 'textarea') {
+      return (
+        <StyledTextArea
+          placeholder={placeholder}
+          value={value}
+          height={height}
+          width={width}
+          onChange={onChange}
+          {...restProps}
+          {...interalStyles}
+          ref={ref}
+        />
+      );
+    }
     return (
-      <StyledTextArea
+      <StyledInput
         placeholder={placeholder}
         value={value}
         height={height}
@@ -93,6 +107,17 @@ const TextArea: TextAreaComponent = React.forwardRef(
   },
 );
 
+export const StyledInput = styled.input<{
+  height?: number;
+  width?: number;
+}>`
+  width: ${({ width }) => (width ? `${width}px` : '300px')};
+  height: ${({ height }) => (height ? `${height}px` : '150px')};
+  font-size: 13px;
+  background-color: #f5f5f5;
+  border: 1px solid #e6e7e8;
+`;
+
 export const StyledTextArea = styled.textarea<{
   height?: number;
   width?: number;
@@ -104,4 +129,4 @@ export const StyledTextArea = styled.textarea<{
   border: 1px solid #e6e7e8;
 `;
 
-export default TextArea;
+export default Input;

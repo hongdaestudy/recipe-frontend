@@ -26,6 +26,7 @@ import { ThemeProvider } from 'styled-components';
 // theme
 import { theme } from './theme/themes';
 import NotFoundPage from './pages/404';
+import { RegisterPage } from './pages/RegisterPage';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -47,7 +48,8 @@ root.render(
                 <Route path="recipe/list" element={<List />} />
                 <Route path="recipe/:recipeId" element={<DetailView />} />
 
-                <Route path="recipe/register" element={<Register />} />
+                {/* <Route path="recipe/register" element={<Register />} /> */}
+                <Route path="recipe/register" element={<RegisterPage />} />
                 <Route path="profile" element={<Profile />} />
                 <Route path="myhome" element={<Myhome />} />
               </Route>

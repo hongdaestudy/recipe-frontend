@@ -22,7 +22,7 @@ import UploadImage from './uploadImage';
 import FileService from '../../services/file.service';
 import AuthService from '../../services/auth.service';
 import CommentService from '../../services/comment.service';
-import TextArea from '../TextArea/Textarea';
+import TextArea from '../Input/Input';
 
 function pack(data: any) {
   const sliderItems: number = data.length > 4 ? 4 : data.length;
