@@ -76,8 +76,12 @@ const Input: TextAreaComponent = React.forwardRef(
     }: ComponentPropsWithRef<C, TextAreaProps>,
     ref?: ComponentRef<C>,
   ) => {
-    const Component = as || 'textarea';
-    const interalStyles = color ? { styles: { ...style, color } } : {};
+    // const interalStyles = color
+    //   ? { styles: { ...style, color: `${color}` } }
+    //   : { styles: { ...style } };
+    const interalStyles = color
+      ? { ...style, color: `${color}` }
+      : { ...style };
     if (as === 'textarea') {
       return (
         <StyledTextArea
@@ -87,7 +91,7 @@ const Input: TextAreaComponent = React.forwardRef(
           width={width}
           onChange={onChange}
           {...restProps}
-          {...interalStyles}
+          style={{ ...interalStyles }}
           ref={ref}
         />
       );
@@ -100,7 +104,7 @@ const Input: TextAreaComponent = React.forwardRef(
         width={width}
         onChange={onChange}
         {...restProps}
-        {...interalStyles}
+        style={{ ...interalStyles }}
         ref={ref}
       />
     );

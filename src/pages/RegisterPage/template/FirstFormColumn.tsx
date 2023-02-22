@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import FlexBox from '../../../component/Flex';
 import { Icon } from '../../../component/Icon';
 import Input from '../../../component/Input/Input';
