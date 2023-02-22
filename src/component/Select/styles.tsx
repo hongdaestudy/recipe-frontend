@@ -2,16 +2,17 @@ import styled from 'styled-components';
 
 export type InputSize = 'large' | 'medium' | 'small';
 
-export const FieldWrapper = styled.div`
+export const FieldWrapper = styled.div<{ column?: boolean }>`
   display: flex;
-  flex-direction: column;
+  flex-direction: ${({ column }) => column === true && 'column'};
   justify-content: center;
   margin-bottom: 15px;
+  margin-right: 14px;
   label {
-    font-size: 16px;
-    line-height: 16px;
+    font-size: 12px;
+    line-height: 40px;
     /* identical to box height */
-
+    margin-right: 8px;
     letter-spacing: 0.916667px;
     text-transform: uppercase;
     margin-bottom: 8px;
@@ -20,12 +21,14 @@ export const FieldWrapper = styled.div`
 `;
 
 export const InputWrapper = styled.div<{
-  inputSize: InputSize;
+  inputSize?: InputSize;
   isLabel: boolean;
   icon?: string;
+  width?: number;
 }>`
   border: 1px solid #e1e5e8;
   box-sizing: border-box;
+
   border-radius: 4px;
   font-size: 20px;
   display: flex;
@@ -33,6 +36,7 @@ export const InputWrapper = styled.div<{
   font-family: Archivo, sans-serif;
   color: #304156;
   position: relative;
+  width: ${({ width }) => width && `${width}px`};
   img {
     position: absolute;
     top: 30%;

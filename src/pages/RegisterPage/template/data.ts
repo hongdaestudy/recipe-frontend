@@ -1,4 +1,4 @@
-import { OptionType } from './../../component/Select/index';
+import { OptionType } from '../../../component/Select/index';
 export const categoryOption1: OptionType[] = [
   { text: '종류별', value: '' },
   { text: '메인반찬', value: '메인반찬' },
@@ -66,4 +66,24 @@ export const categoryOption4: OptionType[] = [
   { text: '과일류', value: '과일류' },
   { text: '콩/견과류', value: '콩/견과류' },
   { text: '곡류', value: '곡류' },
+];
+
+export const categoryOption5: OptionType[] = [
+  { text: '인원', value: '' },
+  { text: '1인분', value: '1인분' },
+  { text: '2인분', value: '2인분' },
+  { text: '3인분', value: '3인분' },
+  { text: '4인분', value: '4인분' },
+  { text: '5인분', value: '5인분' },
+  { text: '6인분 이상', value: '6인분 이상' },
+];
+
+export const categoryOption6: OptionType[] = [
+  { text: '시간', value: '' },
+  { text: '5분이내', value: '5분이내' },
+  { text: '10분이내', value: '10분이내' },
+  { text: '3인분', value: '3인분' },
+  { text: '4인분', value: '4인분' },
+  { text: '5인분', value: '5인분' },
+  { text: '6인분 이상', value: '6인분 이상' },
 ];

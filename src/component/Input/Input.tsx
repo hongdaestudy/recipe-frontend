@@ -116,6 +116,8 @@ export const StyledInput = styled.input<{
   font-size: 13px;
   background-color: #f5f5f5;
   border: 1px solid #e6e7e8;
+  padding-left: 10px;
+  padding-right: 10px;
 `;
 
 export const StyledTextArea = styled.textarea<{
@@ -127,6 +129,9 @@ export const StyledTextArea = styled.textarea<{
   font-size: 13px;
   background-color: #f5f5f5;
   border: 1px solid #e6e7e8;
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-right: 10px;
 `;
 
 export default Input;
