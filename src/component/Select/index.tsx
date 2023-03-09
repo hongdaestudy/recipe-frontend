@@ -48,7 +48,7 @@ const SelectElement = styled.select<{
   border-radius: 4px;
   width: 100%;
   height: 100%;
-  padding-left: 4px;
+  padding: 0px 12px;
   min-height: 43px;
   /* min-width: 127px;
  */
