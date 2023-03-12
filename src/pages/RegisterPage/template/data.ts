@@ -87,3 +87,12 @@ export const categoryOption6: OptionType[] = [
   { text: '5인분', value: '5인분' },
   { text: '6인분 이상', value: '6인분 이상' },
 ];
+
+export const categoryOption7: OptionType[] = [
+  { text: '난이도', value: '' },
+  { text: '아무나', value: '아무나' },
+  { text: '초급', value: '초급' },
+  { text: '중급', value: '중급' },
+  { text: '고급', value: '고급' },
+  { text: '신의경지', value: '신의경지' },
+];

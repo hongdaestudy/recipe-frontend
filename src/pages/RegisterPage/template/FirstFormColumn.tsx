@@ -10,6 +10,7 @@ import {
   categoryOption3,
   categoryOption4,
   categoryOption5,
+  categoryOption7,
 } from './data';
 import { ImageInput } from '../../../component/ImageInput';
 
@@ -84,8 +85,8 @@ export const FirstFormColumn = () => {
             <Label>카테고리</Label>
             <FlexBox justifyContent="flex-start" style={{ width: '100%' }}>
               <Select width={125} options={categoryOption1} />
-              <Select width={114.5} options={categoryOption2} />
-              <Select width={70.5} options={categoryOption3} />
+              <Select width={117.5} options={categoryOption2} />
+              <Select width={85.5} options={categoryOption3} />
               <Select width={106} options={categoryOption4} />
             </FlexBox>
           </ColumnBox>
@@ -110,7 +111,7 @@ export const FirstFormColumn = () => {
                 width={92}
                 style={{ transform: "translateX('14px')" }}
                 label={'난이도'}
-                options={categoryOption3}
+                options={categoryOption7}
               />
             </FlexBox>
           </ColumnBox>

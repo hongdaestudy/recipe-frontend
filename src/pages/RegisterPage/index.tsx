@@ -6,8 +6,9 @@ import { ImageInput } from '../../component/ImageInput';
 import Input from '../../component/Input/Input';
 import { Select } from '../../component/Select';
 import { FirstFormColumn } from './template/FirstFormColumn';
-import { SecondFormColumn } from './template/SecondFormField';
+import { SecondFormField } from './template/SecondFormField';
 import { ColumnBox, FirstFormBox, Label } from './template/styles';
+import { ThirdFormColumn } from './template/ThirdFormColumn';
 
 export const RegisterPage = () => {
   return (
@@ -16,7 +17,8 @@ export const RegisterPage = () => {
         <h1>레시피 등록</h1>
       </TopBox>
       <FirstFormColumn />
-      <SecondFormColumn />
+      <SecondFormField />
+      <ThirdFormColumn />
     </Container>
   );
 };

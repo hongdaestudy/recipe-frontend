@@ -13,7 +13,7 @@ import {
 } from './styles';
 import AddIcon from '../../../../public/assets/add_icon.png';
 
-export const SecondFormColumn = () => {
+export const SecondFormField = () => {
   return (
     <FirstFormBox direction="column">
       <H3>재료가 남거나 부족하지 않도록 정확한 계량정보를 적어주세요.</H3>

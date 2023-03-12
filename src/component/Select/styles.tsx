@@ -83,6 +83,7 @@ export const InputElement = styled.input<{
   width: 100%;
   height: 100%;
   text-align: left;
+  padding: 6px 12px;
   font-family: Noto Sans KR, sans-serif;
   outline: 0;
   ${({ icon }) =>
