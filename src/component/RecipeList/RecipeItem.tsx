@@ -14,6 +14,11 @@ export const RecipeItem = ({ recipe, onClick }: IProps) => {
     <ItemWrapper direction="column" justifyContent="flex-start">
       <FlexBox onClick={() => onClick(recipe.recipeId)}>
         <Img src={recipe.mainPhotoUrl} alt="메인이미지" />
+        <div style={{width: "100%", height: "100%", position:"relative"}}>
+        {
+          recipe.videoUrl ? (<img src="/assets/icon_vod.png" alt="vod" style={{position: "absolute", right: "0px", bottom: "0px"}}/>) : ""
+        }
+        </div>
       </FlexBox>
       <FlexBox
         style={{ width: '100%' }}

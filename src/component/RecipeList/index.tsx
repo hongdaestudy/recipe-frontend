@@ -10,6 +10,10 @@ interface IProps {
 }
 
 export const RecipeList = ({ recipeList, onClick }: IProps) => {
+  if (!recipeList.length) {
+    return <ListWrapper>레시피가 존재하지 않습니다.</ListWrapper>;
+  }
+
   return (
     <ListWrapper justifyContent="flex-start">
       {recipeList.map(recipe => {
