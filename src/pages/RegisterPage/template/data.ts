@@ -16,7 +16,7 @@ export const categoryOption1: OptionType[] = [
 ];
 
 export const categoryOption2: OptionType[] = [
-  { text: '상황별', value: '' },
+  { text: '시간별', value: '' },
   { text: '일상', value: '일상' },
   { text: '초스피드', value: '초스피드' },
   { text: '손님접대', value: '손님접대' },

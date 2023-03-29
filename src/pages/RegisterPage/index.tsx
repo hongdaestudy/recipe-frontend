@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import FlexBox from '../../component/Flex';
 import { Icon } from '../../component/Icon';
 import { Select } from '../../component/Select';
 import { FifthColumn } from './template/FifthColumn';
-import { FirstFormColumn } from './template/FirstFormColumn';
+// import { FirstFormColumn } from './template/FirstFormColumn';
 import { ForthColumn } from './template/ForthColumn';
 import { SecondFormField } from './template/SecondFormField';
 import { ThirdFormColumn } from './template/ThirdFormColumn';
@@ -45,6 +45,19 @@ export interface FormInput {
 
 export const RegisterPage = () => {
   const { register, watch, handleSubmit } = useForm<FormInput>();
+
+  const [imagePreview, setImagePreview] = useState<string>('');
+  const recipeImage = watch('recipeImage');
+
+  useEffect(() => {
+    if (recipeImage && recipeImage.length > 0) {
+      const file = recipeImage[0] as unknown as Blob;
+
+      setImagePreview(URL.createObjectURL(file) as string);
+    }
+  }, [recipeImage]);
+
+  console.log(imagePreview);
 
   const onSubmit: SubmitHandler<FormInput> = data => {
     console.log(data);
@@ -180,19 +193,29 @@ export const RegisterPage = () => {
             </FlexBox>
             <FlexBox
               style={{
+                position: 'relative',
                 height: '100%',
                 marginRight: '15px',
                 transform: ' translateY(-120px)',
               }}
               alignItems="flex-start"
             >
-              <ImageInput
-                label="요리대표사진을 등록해 주세요"
-                isLabel={true}
-                placeholder="요리대표사진을 등록해 주세요"
-                width={250}
-                height={250}
-              />
+              <ImageInputWrapper>
+                {!imagePreview ? (
+                  <Label>요리 대표 사진을 등록해 주세요</Label>
+                ) : (
+                  <ImagePreview
+                    src={`${imagePreview}`}
+                    alt="레시피 대표 이미지"
+                  />
+                )}
+                <TitleImageInput
+                  {...register('recipeImage')}
+                  id="picture"
+                  type="file"
+                />
+              </ImageInputWrapper>
+              {/* 대표 사진 업데이트 */}
             </FlexBox>
           </FormBox>
         </FirstFormBox>
@@ -257,4 +280,33 @@ export const CancelBtn = styled(SubmitBtn)`
   color: #333;
   background-color: #fff;
   border: 1px solid #ccc;
+`;
+
+export const ImageInputWrapper = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+  height: 250px;
+  cursor: pointer;
+  border: none;
+  background-color: #f5f5f5;
+  color: #ccc;
+`;
+
+export const ImagePreview = styled.img`
+  width: 250px;
+  height: 250px;
+  cursor: pointer;
+`;
+
+export const TitleImageInput = styled.input`
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
 `;
