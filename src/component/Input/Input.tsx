@@ -86,7 +86,7 @@ const Input: TextAreaComponent = React.forwardRef(
       return (
         <StyledTextArea
           placeholder={placeholder}
-          value={value}
+          // value={value}
           height={height}
           width={width}
           onChange={onChange}

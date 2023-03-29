@@ -13,9 +13,13 @@ import {
   categoryOption7,
 } from './data';
 import { ImageInput } from '../../../component/ImageInput';
+import { useForm } from 'react-hook-form';
+import { FormInput } from '..';
 
 // page 의 state들을 상속
 export const FirstFormColumn = () => {
+  const { register, watch } = useForm<FormInput>();
+
   return (
     <FirstFormBox justifyContent="flex-start">
       <FormBox justifyContent="space-around">
@@ -27,6 +31,7 @@ export const FirstFormColumn = () => {
           <ColumnBox justifyContent="flex-start">
             <Label>레시피 제목</Label>
             <Input
+              {...register('recipeTitle')}
               as={'input'}
               width={610}
               height={50}
@@ -42,6 +47,7 @@ export const FirstFormColumn = () => {
             <Label>요리 소개</Label>
             <Input
               as={'textarea'}
+              {...register('recipeDescription')}
               width={610}
               height={100}
               style={{
@@ -59,6 +65,7 @@ export const FirstFormColumn = () => {
             <Label>동영상</Label>
             <Input
               as={'textarea'}
+              {...register('videoUrl')}
               width={380}
               height={100}
               style={{
@@ -84,16 +91,33 @@ export const FirstFormColumn = () => {
           <ColumnBox justifyContent="flex-start">
             <Label>카테고리</Label>
             <FlexBox justifyContent="flex-start" style={{ width: '100%' }}>
-              <Select width={125} options={categoryOption1} />
-              <Select width={117.5} options={categoryOption2} />
-              <Select width={85.5} options={categoryOption3} />
-              <Select width={106} options={categoryOption4} />
+              <Select
+                {...register('category')}
+                width={125}
+                options={categoryOption1}
+              />
+              <Select
+                {...register('occasion')}
+                width={117.5}
+                options={categoryOption2}
+              />
+              <Select
+                {...register('method')}
+                width={85.5}
+                options={categoryOption3}
+              />
+              <Select
+                {...register('ingredient')}
+                width={106}
+                options={categoryOption4}
+              />
             </FlexBox>
           </ColumnBox>
           <ColumnBox justifyContent="flex-start">
             <Label>요리정보</Label>
             <FlexBox justifyContent="flex-start" style={{ width: '100%' }}>
               <Select
+                {...register('totalNumber')}
                 column={false}
                 label="인원"
                 width={86}
@@ -102,12 +126,14 @@ export const FirstFormColumn = () => {
               <Select
                 column={false}
                 width={86}
+                {...register('infoTime')}
                 label={'시간'}
                 style={{ transform: "translateX('14px')" }}
                 options={categoryOption2}
               />
               <Select
                 column={false}
+                {...register('difficulty')}
                 width={92}
                 style={{ transform: "translateX('14px')" }}
                 label={'난이도'}

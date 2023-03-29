@@ -1,20 +1,20 @@
 import React from 'react';
 import FlexBox from '../../../component/Flex';
-import { FirstFormBox, FormBox } from './styles';
+import { FirstFormBox, FormBox, IconButton } from './styles';
 import styled from 'styled-components';
+import { StepForm } from '../components/StepForm';
 
 export const ThirdFormColumn = () => {
   return (
     <FirstFormBox>
       <PaddingBox direction="column" justifyContent="flex-start">
-        <FullWidthBox justifyContent="flex-start">
+        <FullWidthBox justifyContent="flex-start" alignItems="flex-start">
           <h1>요리 순서</h1>
-          <IconButton
+          <IconBtn
             onClick={() => console.log('요리 순서 사진 한번에 넣기 이벤트')}
           >
-            <span></span>
             순서사진 한번에 넣기
-          </IconButton>
+          </IconBtn>
         </FullWidthBox>
         <FullWidthBox justifyContent="flex-start">
           <FlexBox
@@ -37,8 +37,34 @@ export const ThirdFormColumn = () => {
             </PaddingB>
           </FlexBox>
         </FullWidthBox>
-        <FullWidthBox>
-          <CookStepBox direction="column"></CookStepBox>
+        <FullWidthBox direction="column">
+          <CookStepBox
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="flex-start"
+          >
+            <StepForm step={1} />
+          </CookStepBox>
+          <FlexBox>
+            <AddBtn>
+              <img
+                src={`${process.env.PUBLIC_URL}/assets/add_icon.png`}
+                alt={'addIcon'}
+              />
+              순서 추가
+            </AddBtn>
+          </FlexBox>
+          <ImageWrapper justifyContent="flex-start" alignItems="flex-start">
+            <FlexBox direction="column">
+              <ImageTitle>요리 완성사진</ImageTitle>
+              <IconBtn
+                onClick={() => console.log('요리 순서 사진 한번에 넣기 이벤트')}
+              >
+                <span></span>
+                사진 한번에 넣기
+              </IconBtn>
+            </FlexBox>
+          </ImageWrapper>
         </FullWidthBox>
       </PaddingBox>
     </FirstFormBox>
@@ -50,23 +76,9 @@ export const PaddingBox = styled(FlexBox)`
   width: 100%;
 `;
 
-export const IconButton = styled.button`
-  padding: 4px 10px 5px;
-  font-size: 12px;
-  line-height: 1.5;
-  border-radius: 3px;
-
-  span {
-    font-weight: 400;
-    &::before {
-      content: '\2b';
-    }
-  }
-`;
-
 export const FullWidthBox = styled(FlexBox)`
   width: 100%;
-  margin-top: 10px;
+  margin-top: 20px;
   h1 {
     margin-right: 10px;
   }
@@ -84,4 +96,44 @@ export const PaddingB = styled(B)`
 
 export const CookStepBox = styled(FlexBox)`
   width: 100%;
+`;
+
+export const AddBtn = styled.button`
+  border: none;
+  font-size: 16px;
+  margin-right: 4px;
+  cursor: pointer;
+  width: 180px;
+  transform: translate(-120px, 12px);
+  position: relative;
+  background-color: #ffffff;
+  img {
+    transform: translate(-5px, 4px);
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+  }
+`;
+
+export const ImageWrapper = styled(FlexBox)`
+  margin-top: 40px;
+
+  width: 100%;
+  height: 100%;
+`;
+
+export const ImageTitle = styled.h2`
+  font-size: 20px;
+  font-weight: normal;
+  margin-bottom: 20px;
+`;
+
+const IconBtn = styled.button`
+  padding: 4px 10px 5px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+  color: #333;
+  border: 1px solid #ccc;
+  background-color: #ffffff;
 `;

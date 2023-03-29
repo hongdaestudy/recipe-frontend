@@ -55,9 +55,10 @@ export const AddBtn = styled.button`
   cursor: pointer;
   width: 180px;
   transform: translate(-120px, 12px);
-
+  position: relative;
   background-color: #ffffff;
   img {
+    transform: translate(-5px, 4px);
     cursor: pointer;
     width: 18px;
     height: 18px;
@@ -85,5 +86,22 @@ export const BtnSpan = styled.span`
   position: relative;
   &::before {
     content: '\2b';
+  }
+`;
+
+export const IconButton = styled.button`
+  padding: 4px 10px 5px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+  color: #333;
+  border: none;
+  background-color: #ffffff;
+  margin-top: 20px;
+  span {
+    font-weight: 400;
+    &::before {
+      content: '\2b';
+    }
   }
 `;
