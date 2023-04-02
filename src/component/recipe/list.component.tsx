@@ -7,10 +7,24 @@ import { Recipe } from '../../types/detailView.type';
 import FlexBox from '../Flex';
 import { LoadingIndicator } from '../LoadingIndicator';
 import { RecipeList } from '../RecipeList';
+import { IFilter, ListFilter } from '../ListFilter';
 
 export default function List() {
   const [recipeList, setRecipeList] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(false);
+  const [filter, setFilter] = useState<IFilter>({
+    kind: '',
+    situation: '',
+    ingredient: '',
+    method: '',
+  });
+
+  const updateFilter = (param: IFilter) => {
+    setFilter({
+      ...filter,
+      ...param,
+    });
+  };
 
   // redux 에 저장
   const getRecipeData = async () => {
@@ -21,8 +35,9 @@ export default function List() {
   };
 
   useEffect(() => {
+    console.log(filter);
     getRecipeData();
-  }, []);
+  }, [filter]);
 
   const navigate = useNavigate();
   const onClickHandler = (id: string) => {
@@ -44,6 +59,8 @@ export default function List() {
 
   return (
     <Wrapper direction="column">
+      <ListFilter updateFilter={updateFilter} filter={filter} />
+
       <UpWrapper justifyContent="space-between">
         <FlexBox justifyContent="flex-start">
           <Head1>
