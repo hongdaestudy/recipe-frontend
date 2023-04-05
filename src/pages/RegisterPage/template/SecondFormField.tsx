@@ -12,8 +12,10 @@ import {
   LineDiv,
 } from './styles';
 import AddIcon from '../../../../public/assets/add_icon.png';
+import { useFormContext } from 'react-hook-form';
 
 export const SecondFormField = () => {
+  const { register } = useFormContext();
   return (
     <FirstFormBox direction="column">
       <H3>재료가 남거나 부족하지 않도록 정확한 계량정보를 적어주세요.</H3>
@@ -34,37 +36,13 @@ export const SecondFormField = () => {
             />
           </FlexBox>
 
-          <FlexBox style={{ width: '100%' }} direction="column">
-            <InputBox style={{ width: '100%' }} justifyContent="flex-start">
-              <Input
-                as={'input'}
-                placeholder="예)돼지고기"
-                width={330}
-                height={50}
-              />
-              <Input
-                as={'input'}
-                placeholder="예)300g"
-                width={330}
-                style={{ marginLeft: '25px' }}
-                height={50}
-              />
-            </InputBox>
-            <InputBox style={{ width: '100%' }} justifyContent="flex-start">
-              <Input
-                as={'input'}
-                placeholder="예)돼지고기"
-                width={330}
-                height={50}
-              />
-              <Input
-                as={'input'}
-                placeholder="예)300g"
-                width={330}
-                style={{ marginLeft: '25px' }}
-                height={50}
-              />
-            </InputBox>
+          <FlexBox
+            style={{ width: '100%', transform: 'translateY(-60px)' }}
+            direction="column"
+            alignItems="flex-start"
+          >
+            {/* fields array로 구현 */}
+
             <InputBox style={{ width: '100%' }} justifyContent="flex-start">
               <Input
                 as={'input'}

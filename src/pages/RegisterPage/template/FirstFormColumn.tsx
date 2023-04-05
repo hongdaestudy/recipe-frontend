@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import FlexBox from '../../../component/Flex';
 import { Icon } from '../../../component/Icon';
 import Input from '../../../component/Input/Input';
@@ -13,12 +13,43 @@ import {
   categoryOption7,
 } from './data';
 import { ImageInput } from '../../../component/ImageInput';
-import { useForm } from 'react-hook-form';
-import { FormInput } from '..';
+import { useForm, useFormContext } from 'react-hook-form';
+import {
+  FormInput,
+  ImageInputWrapper,
+  ImagePreview,
+  TitleImageInput,
+} from '..';
+
+interface FirstFormColumnProps {
+  imagePreview: string;
+  setImagePreview: React.Dispatch<React.SetStateAction<string>>;
+  urlThumbNail: string;
+  setUrlThumbnail: React.Dispatch<React.SetStateAction<string>>;
+}
 
 // page 의 state들을 상속
-export const FirstFormColumn = () => {
-  const { register, watch } = useForm<FormInput>();
+export const FirstFormColumn = ({
+  imagePreview,
+  setImagePreview,
+  urlThumbNail,
+  setUrlThumbnail,
+}: FirstFormColumnProps) => {
+  const { register, watch } = useFormContext();
+
+  const videoUrlValue = watch('videoUrl');
+
+  useEffect(() => {
+    if (videoUrlValue) {
+      // youtube 만 처리
+      const videoIdArr: any[] = videoUrlValue.split('/');
+      const id = videoIdArr[videoIdArr.length - 1];
+      //https://youtu.be/FxKiuNUfTZg
+      //https://img.youtube.com/vi/6PlkYCfW0_U/mqdefault.jpg 320 x 180
+      console.log(id);
+      setUrlThumbnail(`https://img.youtube.com/vi/${id}/mqdefault.jpg`);
+    }
+  }, [videoUrlValue]);
 
   return (
     <FirstFormBox justifyContent="flex-start">
@@ -77,14 +108,18 @@ export const FirstFormColumn = () => {
                 marginRight: '10px',
               }}
               placeholder="동영상이 있으면 주소를 입력하세요.
-              (Youtube,네이버tvcast,다음tvpot 만 가능) 예)http://youtu.be/lA0Bxo3IZmM"
+              (Youtube,만 가능) 예)http://youtu.be/lA0Bxo3IZmM"
             />
             <div>
               {/* thumbnail 등록 후 아이콘 제거  */}
               <Icon
                 width={178}
                 height={100}
-                src={`${process.env.PUBLIC_URL}/assets/pic_none5.gif`}
+                src={
+                  urlThumbNail.length === 0
+                    ? `${process.env.PUBLIC_URL}/assets/pic_none5.gif`
+                    : urlThumbNail
+                }
               />
             </div>
           </ColumnBox>
@@ -144,19 +179,26 @@ export const FirstFormColumn = () => {
         </FlexBox>
         <FlexBox
           style={{
+            position: 'relative',
             height: '100%',
             marginRight: '15px',
             transform: ' translateY(-120px)',
           }}
           alignItems="flex-start"
         >
-          <ImageInput
-            label="요리대표사진을 등록해 주세요"
-            isLabel={true}
-            placeholder="요리대표사진을 등록해 주세요"
-            width={250}
-            height={250}
-          />
+          <ImageInputWrapper>
+            {!imagePreview ? (
+              <Label>요리 대표 사진을 등록해 주세요</Label>
+            ) : (
+              <ImagePreview src={`${imagePreview}`} alt="레시피 대표 이미지" />
+            )}
+            <TitleImageInput
+              {...register('recipeImage')}
+              id="picture"
+              type="file"
+            />
+          </ImageInputWrapper>
+          {/* 대표 사진 업데이트 */}
         </FlexBox>
       </FormBox>
     </FirstFormBox>
