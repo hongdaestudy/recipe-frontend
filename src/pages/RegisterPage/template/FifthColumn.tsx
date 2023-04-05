@@ -3,6 +3,7 @@ import React from 'react';
 import FlexBox from '../../../component/Flex';
 import { Label } from './styles';
 import Input from '../../../component/Input/Input';
+import { useFormContext } from 'react-hook-form';
 
 export const FirstFormBox = styled(FlexBox)`
   padding: 26px 30px;
@@ -13,6 +14,8 @@ export const FirstFormBox = styled(FlexBox)`
 `;
 
 export const FifthColumn = () => {
+  const { register, watch } = useFormContext();
+
   return (
     <FirstFormBox direction="column">
       <Wrapper justifyContent="flex-start" alignItems="flex-start">

@@ -3,8 +3,11 @@ import FlexBox from '../../../component/Flex';
 import { FirstFormBox, FormBox, IconButton } from './styles';
 import styled from 'styled-components';
 import { StepForm } from '../components/StepForm';
+import { useFormContext } from 'react-hook-form';
 
 export const ThirdFormColumn = () => {
+  const { register, watch } = useFormContext();
+
   return (
     <FirstFormBox>
       <PaddingBox direction="column" justifyContent="flex-start">
