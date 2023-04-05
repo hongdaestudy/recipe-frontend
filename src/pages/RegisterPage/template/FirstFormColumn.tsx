@@ -12,14 +12,8 @@ import {
   categoryOption5,
   categoryOption7,
 } from './data';
-import { ImageInput } from '../../../component/ImageInput';
-import { useForm, useFormContext } from 'react-hook-form';
-import {
-  FormInput,
-  ImageInputWrapper,
-  ImagePreview,
-  TitleImageInput,
-} from '..';
+import { useFormContext } from 'react-hook-form';
+import { ImageInputWrapper, ImagePreview, TitleImageInput } from '..';
 
 interface FirstFormColumnProps {
   imagePreview: string;
@@ -31,7 +25,7 @@ interface FirstFormColumnProps {
 // page 의 state들을 상속
 export const FirstFormColumn = ({
   imagePreview,
-  setImagePreview,
+
   urlThumbNail,
   setUrlThumbnail,
 }: FirstFormColumnProps) => {
