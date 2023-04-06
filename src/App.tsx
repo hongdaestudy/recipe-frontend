@@ -13,9 +13,9 @@ export default function App() {
     router.push('/login');
   };
   useEffect(() => {
-    if (!AuthService.getCurrentUser()) {
-      router.push('/login');
-    }
+    // if (!AuthService.getCurrentUser()) {
+    //   router.push('/login');
+    // }
   }, []);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

@@ -17,10 +17,6 @@ export default function Join() {
   const handleJoin = (formValue: Inputs) => {
     const { email, password } = formValue;
 
-    setJoinState({
-      message: '',
-    });
-
     AuthService.join(email, password).then(
       () => {
         navigate('/');
@@ -43,7 +39,7 @@ export default function Join() {
     register,
     handleSubmit,
     formState: { errors },
-    getValues
+    getValues,
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = data => {
@@ -67,36 +63,73 @@ export default function Join() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div style={{position:"absolute", left:"50%", top:"50%", WebkitTransform:"translate(-50%, -50%)", transform: "translate(-50%, -50%)"}}>
+      <div
+        style={{
+          position: 'absolute',
+          left: '50%',
+          top: '50%',
+          WebkitTransform: 'translate(-50%, -50%)',
+          transform: 'translate(-50%, -50%)',
+        }}
+      >
         <img src="assets/1000recipe.png" alt="" />
 
         <div>
-          <TextField variant="standard" type="email" placeholder="Email" {...register("email", { required: true })}  sx={{width: "250px"}}/>
-          <Button type="button" variant="contained" color="success" size="small" sx={{width: "100px"}} onClick={checkEmail}>중복 확인</Button>
+          <TextField
+            variant="standard"
+            type="email"
+            placeholder="Email"
+            {...register('email', { required: true })}
+            sx={{ width: '250px' }}
+          />
+          <Button
+            type="button"
+            variant="contained"
+            color="success"
+            size="small"
+            sx={{ width: '100px' }}
+            onClick={checkEmail}
+          >
+            중복 확인
+          </Button>
           {errors.email && <span>This field is required</span>}
         </div>
 
         <div>
-          <TextField variant="standard" type="password" placeholder="Password" {...register("password", { required: true})}  sx={{width: "250px"}}/>
+          <TextField
+            variant="standard"
+            type="password"
+            placeholder="Password"
+            {...register('password', { required: true })}
+            sx={{ width: '250px' }}
+          />
           {errors.password && <span>This field is required</span>}
         </div>
 
         <div>
-          <TextField variant="standard" type="password" placeholder="Password Confirm" {...register("passwordConfirm", { required: true})}  sx={{width: "250px"}}/>
+          <TextField
+            variant="standard"
+            type="password"
+            placeholder="Password Confirm"
+            {...register('passwordConfirm', { required: true })}
+            sx={{ width: '250px' }}
+          />
           {errors.passwordConfirm && <span>This field is required</span>}
         </div>
         <br />
         <div>
-          <Button type="submit" variant="contained" color="success" sx={{width: "350px"}}>Join</Button>
+          <Button
+            type="submit"
+            variant="contained"
+            color="success"
+            sx={{ width: '350px' }}
+          >
+            Join
+          </Button>
         </div>
       </div>
 
-
-      {joinState.message && (
-        <div>
-          {joinState.message}
-        </div>
-      )}
+      {joinState.message && <div>{joinState.message}</div>}
     </form>
-  )
+  );
 }
