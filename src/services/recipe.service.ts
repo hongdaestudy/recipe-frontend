@@ -2,19 +2,29 @@ import api from './api';
 import { FormValues } from '../types/register.type';
 import { Recipe } from '../types/detailView.type';
 import data from '../data.json';
+interface IGetRecipeList {
+  kind?: string;
+  situation?: string;
+  ingredient?: string;
+  method?: string;
 
+  page: number;
+  limit: number;
+}
 class RecipeService {
-  getRecipeList() {
-    //return axios.get(API_URL + 'get', { headers: authHeader() });
+  getRecipeList(param: IGetRecipeList) {
+    //return api.get('get', param);
+
+    const offset = (param.page - 1) * param.limit;
     return new Promise<Recipe[]>(resolve => {
       setTimeout(() => {
-        resolve(data);
+        resolve(data.slice(offset, offset + param.limit));
       }, 300);
     });
   }
 
   getRecipe(recipeId: string) {
-    //return axios.get(API_URL + 'get', { headers: authHeader() });
+    //return api.get('get');
     return new Promise<Recipe | undefined>(resolve => {
       setTimeout(() => {
         resolve(data.find(recipe => recipe.recipeId === recipeId));

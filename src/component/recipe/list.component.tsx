@@ -8,6 +8,7 @@ import FlexBox from '../Flex';
 import { LoadingIndicator } from '../LoadingIndicator';
 import { RecipeList } from '../RecipeList';
 import { IFilter, ListFilter } from '../ListFilter';
+import { Pagination } from '../Pagination';
 
 export default function List() {
   const [recipeList, setRecipeList] = useState<Recipe[]>([]);
@@ -26,18 +27,26 @@ export default function List() {
     });
   };
 
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
+  const [limit] = useState(10);
   // redux 에 저장
   const getRecipeData = async () => {
     setLoading(true);
-    const response = await RecipeService.getRecipeList();
+    const response = await RecipeService.getRecipeList({
+      ...filter,
+      page,
+      limit,
+    });
     setRecipeList(response);
+    setTotal(4);
     setLoading(false);
   };
 
   useEffect(() => {
     console.log(filter);
     getRecipeData();
-  }, [filter]);
+  }, [filter, page]);
 
   const navigate = useNavigate();
   const onClickHandler = (id: string) => {
@@ -70,6 +79,8 @@ export default function List() {
       </UpWrapper>
 
       <RecipeList onClick={onClickHandler} recipeList={recipeList} />
+
+      <Pagination page={page} total={total} limit={limit} setPage={setPage} />
     </Wrapper>
   );
 }
