@@ -1,6 +1,8 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import AuthService from '../../services/auth.service';
+import { BasicMenu } from '../BasicMenu';
 /**
  * login 해야 하는 지 profile  혹은 레시피 등록 하는 라우트 인지 구별 할 수 있게
  * 컴포넌트 사용
@@ -21,15 +23,48 @@ export const UserIcon = (): ReactElement => {
     navigate(path);
   };
 
+  const [anchorElement, setAnchorElement] = useState<null | HTMLElement>(null);
+  const myPageMenuOpen = Boolean(anchorElement);
+  const myPageAnchorClickHandler = (e: React.MouseEvent<HTMLElement>) => {
+    /*
+    if (!AuthService.getCurrentUser()) {
+      goUrl('/login');
+    } else {
+      setAnchorElement(e.currentTarget);
+    }
+    */
+
+    setAnchorElement(e.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorElement(null);
+  };
   return (
     <Wrapper>
       {/* user 인증 확인 후 ui 변경 */}
       <Round
-        onClick={() => goUrl('/login')}
+        onClick={myPageAnchorClickHandler}
         src="/assets/icon_user.png"
         alt="로그인"
       />
-
+      <BasicMenu open={myPageMenuOpen} handleClose={handleClose}>
+        <MenuItem
+          onClick={() => {
+            goUrl('/myhome');
+            handleClose();
+          }}
+        >
+          마이홈
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            AuthService.logout();
+            goUrl('/login');
+          }}
+        >
+          로그아웃
+        </MenuItem>
+      </BasicMenu>
       <Round
         // 다른 팝업 창을 띄운다음 두가지 path를 보여 준다.
         onClick={() => goUrl('/recipe/register')}
@@ -47,6 +82,7 @@ export const Wrapper = styled.div`
   height: 100%;
   margin-left: 16px;
   padding-left: 50px;
+  position: relative;
 `;
 
 export const Round = styled.img`
@@ -57,4 +93,10 @@ export const Round = styled.img`
   border: 0;
   margin-left: 16px;
   cursor: pointer;
+`;
+
+export const MenuItem = styled.div`
+  border-bottom: 1px solid gray;
+  padding: 5px 15px;
+  text-align: center;
 `;
