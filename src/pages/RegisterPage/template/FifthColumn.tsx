@@ -1,9 +1,10 @@
 import styled from 'styled-components';
-import React from 'react';
+import React, { useState } from 'react';
 import FlexBox from '../../../component/Flex';
 import { Label } from './styles';
 import Input from '../../../component/Input/Input';
 import { useFormContext } from 'react-hook-form';
+import { TagInput } from '../components/TagInput';
 
 export const FirstFormBox = styled(FlexBox)`
   padding: 26px 30px;
@@ -15,13 +16,14 @@ export const FirstFormBox = styled(FlexBox)`
 
 export const FifthColumn = () => {
   const { register, watch } = useFormContext();
-
+  const [tags, setTags] = useState<Array<{ id: string; tag: string }>>([]);
   return (
     <FirstFormBox direction="column">
       <Wrapper justifyContent="flex-start" alignItems="flex-start">
         {/* 태그 기능 구현 */}
         <Label>태그</Label>
-        <Input
+        <TagInput tags={tags} setTags={setTags} />
+        {/* <Input
           width={620}
           height={40}
           style={{
@@ -29,7 +31,7 @@ export const FifthColumn = () => {
 
             border: '1px solid #e1e1e1',
           }}
-        />
+        /> */}
       </Wrapper>
       <Wrapper justifyContent="flex-start">
         <span>
