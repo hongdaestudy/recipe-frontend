@@ -23,15 +23,6 @@ export const FifthColumn = () => {
         {/* 태그 기능 구현 */}
         <Label>태그</Label>
         <TagInput tags={tags} setTags={setTags} />
-        {/* <Input
-          width={620}
-          height={40}
-          style={{
-            backgroundColor: '#f5f5f5',
-
-            border: '1px solid #e1e1e1',
-          }}
-        /> */}
       </Wrapper>
       <Wrapper justifyContent="flex-start">
         <span>

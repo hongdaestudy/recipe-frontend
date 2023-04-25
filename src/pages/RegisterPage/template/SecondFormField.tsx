@@ -12,10 +12,16 @@ import {
   LineDiv,
 } from './styles';
 import AddIcon from '../../../../public/assets/add_icon.png';
-import { useFormContext } from 'react-hook-form';
+import { useFormContext, useFieldArray } from 'react-hook-form';
 
 export const SecondFormField = () => {
-  const { register } = useFormContext();
+  const { register, control } = useFormContext();
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'ingredient',
+  });
+
   return (
     <FirstFormBox direction="column">
       <H3>재료가 남거나 부족하지 않도록 정확한 계량정보를 적어주세요.</H3>
@@ -36,39 +42,59 @@ export const SecondFormField = () => {
             />
           </FlexBox>
 
-          <FlexBox
-            style={{ width: '100%', transform: 'translateY(-60px)' }}
-            direction="column"
-            alignItems="flex-start"
-          >
-            {/* fields array로 구현 */}
+          <FlexBox direction="column">
+            {fields.map((item, index) => {
+              return (
+                <FlexBox
+                  key={item.id}
+                  style={{ width: '100%', transform: 'translateY(-60px)' }}
+                  direction="column"
+                  alignItems="flex-start"
+                >
+                  {/* fields array로 구현 */}
 
-            <InputBox style={{ width: '100%' }} justifyContent="flex-start">
-              <Input
-                as={'input'}
-                placeholder="예)돼지고기"
-                width={330}
-                height={50}
-              />
-              <Input
-                as={'input'}
-                placeholder="예)300g"
-                width={330}
-                style={{ marginLeft: '25px' }}
-                height={50}
-              />
-            </InputBox>
-            <InputBox style={{ width: '70%' }}>
-              <AddBtn>
-                <img
-                  src={`${process.env.PUBLIC_URL}/assets/add_icon.png`}
-                  alt={'addIcon'}
-                />
-                추가
-              </AddBtn>
-            </InputBox>
-            {/* TODO react-hook-form nestedArray example study */}
+                  <InputBox
+                    style={{ width: '100%' }}
+                    justifyContent="flex-start"
+                  >
+                    <Input
+                      {...register(`ingredient.${index}.one` as const)}
+                      as={'input'}
+                      placeholder="예)돼지고기"
+                      width={330}
+                      height={50}
+                    />
+                    <Input
+                      as={'input'}
+                      {...register(`ingredient.${index}.two` as const)}
+                      placeholder="예)300g"
+                      width={330}
+                      style={{ marginLeft: '25px' }}
+                      height={50}
+                    />
+                  </InputBox>
+
+                  {/* TODO react-hook-form nestedArray example study */}
+                </FlexBox>
+              );
+            })}
           </FlexBox>
+          <InputBox style={{ width: '100%' }}>
+            <AddBtn
+              onClick={() =>
+                append({
+                  one: '',
+                  two: '',
+                })
+              }
+            >
+              <img
+                src={`${process.env.PUBLIC_URL}/assets/add_icon.png`}
+                alt={'addIcon'}
+              />
+              추가
+            </AddBtn>
+          </InputBox>
         </ColumnBox>
       </FlexBox>
       <LineDiv direction="column">

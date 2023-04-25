@@ -46,6 +46,7 @@ export const H3 = styled.h3`
 export const InputBox = styled(FlexBox)`
   margin-left: 25px;
   margin-top: 12px;
+  justify-content: flex-start;
 `;
 
 export const AddBtn = styled.button`
