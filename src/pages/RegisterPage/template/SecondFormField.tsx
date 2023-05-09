@@ -19,7 +19,7 @@ export const SecondFormField = () => {
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: 'ingredient',
+    name: 'ingredientGroup',
   });
 
   return (
@@ -59,7 +59,7 @@ export const SecondFormField = () => {
                       justifyContent="flex-start"
                     >
                       <Input
-                        {...register(`ingredient.${index}.one`)}
+                        {...register(`ingredient.${index}.name`)}
                         as={'input'}
                         placeholder="예)돼지고기"
                         width={330}
@@ -67,7 +67,7 @@ export const SecondFormField = () => {
                       />
                       <Input
                         as={'input'}
-                        {...register(`ingredient.${index}.two`)}
+                        {...register(`ingredient.${index}.amount`)}
                         placeholder="예)300g"
                         width={330}
                         style={{ marginLeft: '25px' }}
@@ -85,8 +85,8 @@ export const SecondFormField = () => {
               <AddBtn
                 onClick={() =>
                   append({
-                    one: '',
-                    two: '',
+                    name: '',
+                    amount: '',
                   })
                 }
               >

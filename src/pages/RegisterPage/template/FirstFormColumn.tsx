@@ -146,7 +146,7 @@ export const FirstFormColumn = ({
             <Label>요리정보</Label>
             <FlexBox justifyContent="flex-start" style={{ width: '100%' }}>
               <Select
-                {...register('totalNumber')}
+                {...register('servingCount')}
                 column={false}
                 label="인원"
                 width={86}
@@ -155,14 +155,14 @@ export const FirstFormColumn = ({
               <Select
                 column={false}
                 width={86}
-                {...register('infoTime')}
+                {...register('cookingTime')}
                 label={'시간'}
                 style={{ transform: "translateX('14px')" }}
                 options={categoryOption2}
               />
               <Select
                 column={false}
-                {...register('difficulty')}
+                {...register('difficultyLevel')}
                 width={92}
                 style={{ transform: "translateX('14px')" }}
                 label={'난이도'}

@@ -37,10 +37,12 @@ export interface FormInput {
   category: string; // 종류별
   occasion: string; // 상황별
   method: string; // 방법별
-  ingredient: { one: string; two: string }[]; // 재료별
-  totalNumber: string; // 몇 인분 인지
-  infoTime: string; // 요리 정보에서의 시간
-  difficulty: string; // 상 중 하 난이도
+  ingredient: string;
+  ingredientGroup: { name: string; amount: string }[]; // 재료별
+  servingCount: string; // 몇 인분 인지
+  cookingTime: string; // 요리 정보에서의 시간
+  difficultyLevel: string; // 상 중 하 난이도
+  tip: string; // 요리 팁
 }
 // TODO.
 // first column useForm 기능 구현
@@ -53,7 +55,7 @@ export const RegisterPage = () => {
   // const { register, watch, handleSubmit } = useForm<FormInput>();
   const methods = useForm<FormInput>({
     defaultValues: {
-      ingredient: [{ one: '', two: '' }],
+      ingredientGroup: [{ name: '', amount: '' }],
     },
   });
   const [imagePreview, setImagePreview] = useState<string>('');
@@ -78,6 +80,7 @@ export const RegisterPage = () => {
         <h1>레시피 등록</h1>
       </TopBox>
       <FormProvider {...methods}>
+        {/* <FormWrapper> */}
         <FormWrapper onSubmit={methods.handleSubmit(onSubmit)}>
           <FirstFormColumn
             imagePreview={imagePreview}
@@ -92,7 +95,9 @@ export const RegisterPage = () => {
           <ForthColumn />
           <FifthColumn />
           <FirstFormBox>
-            <SubmitBtn>저장</SubmitBtn>
+            <SubmitBtn type="submit" onClick={methods.handleSubmit(onSubmit)}>
+              저장
+            </SubmitBtn>
             <SubmitOpenBtn>저장 후 공개하기</SubmitOpenBtn>
             <CancelBtn>취소</CancelBtn>
           </FirstFormBox>

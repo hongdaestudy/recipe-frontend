@@ -21,6 +21,7 @@ export const ForthColumn = () => {
       <Wrapper justifyContent="flex-start" alignItems="flex-start">
         <Label>요리팁</Label>
         <Input
+          {...register('tip')}
           as={'textarea'}
           width={610}
           height={120}

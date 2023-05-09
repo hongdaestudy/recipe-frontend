@@ -96,3 +96,73 @@ export const categoryOption7: OptionType[] = [
   { text: '고급', value: '고급' },
   { text: '신의경지', value: '신의경지' },
 ];
+
+export const jsonExample = {
+  // 재료 ingredients
+  ingredientGroups: [
+    {
+      name: '재료',
+      ingredients: [
+        {
+          name: '돼지',
+          amount: '300g',
+        },
+        {
+          name: '배추',
+          amount: '1/2개',
+        },
+        {
+          name: '기름',
+          amount: '1T',
+        },
+      ],
+    },
+  ],
+  recipeSteps: [
+    {
+      description: '1',
+      photoFileId: '3',
+    },
+    {
+      description: '2',
+      photoFileId: '4',
+    },
+  ],
+  memberId: '1',
+  // 저장 후 공개 할지 아니면 바로 공개할지 버튼 상태에 따라 구현
+  status: 'IN_PROGRESS', //IN_PROGRESS,PUBLISHED
+  // recipeTitle
+  title: '김치',
+  // recipeDescription
+  description: '--',
+  // videoUrl
+  videoUrl: '--',
+
+  category: {
+    // category
+    kind: 'SIDE',
+    // occasion
+    situation: 'ROUTINE',
+    // method
+    method: 'MIX',
+    // ingredient
+    ingredient: 'CHICKEN',
+  },
+  information: {
+    // totalNumber
+    servingCount: 'ONE',
+    cookingTime: 'FIVE_MINUTES_LESS', //
+    difficultyLevel: 'EASY',
+  },
+  tip: 'tip',
+  mainPhotoFileId: '2',
+  completionPhotoFileId: ['1'],
+  recipeTags: [
+    {
+      name: '김',
+    },
+    {
+      name: '밥',
+    },
+  ],
+};
