@@ -128,6 +128,7 @@ export const jsonExample = {
       photoFileId: '4',
     },
   ],
+  // user id?
   memberId: '1',
   // 저장 후 공개 할지 아니면 바로 공개할지 버튼 상태에 따라 구현
   status: 'IN_PROGRESS', //IN_PROGRESS,PUBLISHED
