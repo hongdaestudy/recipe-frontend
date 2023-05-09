@@ -27,9 +27,9 @@ export const SecondFormField = () => {
       <H3>재료가 남거나 부족하지 않도록 정확한 계량정보를 적어주세요.</H3>
       <FlexBox style={{ width: '100%' }}>
         {/* TODO drag event */}
-        <ColumnBox justifyContent="flex-start">
+        <ColumnBox alignItems="flex-start" justifyContent="flex-start">
           <FlexBox
-            style={{ minHeight: '200px', height: 'auto' }}
+            style={{ minHeight: '200px', marginTop: '10px' }}
             justifyContent="flex-start"
             alignItems="flex-start"
           >
@@ -43,58 +43,61 @@ export const SecondFormField = () => {
           </FlexBox>
 
           <FlexBox direction="column">
-            {fields.map((item, index) => {
-              return (
-                <FlexBox
-                  key={item.id}
-                  style={{ width: '100%', transform: 'translateY(-60px)' }}
-                  direction="column"
-                  alignItems="flex-start"
-                >
-                  {/* fields array로 구현 */}
-
-                  <InputBox
+            <FlexBox direction="column">
+              {fields.map((item, index) => {
+                return (
+                  <FlexBox
+                    key={item.id}
                     style={{ width: '100%' }}
-                    justifyContent="flex-start"
+                    direction="column"
+                    alignItems="flex-start"
                   >
-                    <Input
-                      {...register(`ingredient.${index}.one` as const)}
-                      as={'input'}
-                      placeholder="예)돼지고기"
-                      width={330}
-                      height={50}
-                    />
-                    <Input
-                      as={'input'}
-                      {...register(`ingredient.${index}.two` as const)}
-                      placeholder="예)300g"
-                      width={330}
-                      style={{ marginLeft: '25px' }}
-                      height={50}
-                    />
-                  </InputBox>
+                    {/* fields array로 구현 */}
 
-                  {/* TODO react-hook-form nestedArray example study */}
-                </FlexBox>
-              );
-            })}
+                    <InputBox
+                      style={{ width: '100%' }}
+                      justifyContent="flex-start"
+                    >
+                      <Input
+                        {...register(`ingredient.${index}.one`)}
+                        as={'input'}
+                        placeholder="예)돼지고기"
+                        width={330}
+                        height={50}
+                      />
+                      <Input
+                        as={'input'}
+                        {...register(`ingredient.${index}.two`)}
+                        placeholder="예)300g"
+                        width={330}
+                        style={{ marginLeft: '25px' }}
+                        height={50}
+                      />
+                    </InputBox>
+
+                    {/* TODO react-hook-form nestedArray example study */}
+                  </FlexBox>
+                );
+              })}
+            </FlexBox>
+
+            <InputBox style={{ width: '100%', transform: 'translateX(50%)' }}>
+              <AddBtn
+                onClick={() =>
+                  append({
+                    one: '',
+                    two: '',
+                  })
+                }
+              >
+                <img
+                  src={`${process.env.PUBLIC_URL}/assets/add_icon.png`}
+                  alt={'addIcon'}
+                />
+                추가
+              </AddBtn>
+            </InputBox>
           </FlexBox>
-          <InputBox style={{ width: '100%' }}>
-            <AddBtn
-              onClick={() =>
-                append({
-                  one: '',
-                  two: '',
-                })
-              }
-            >
-              <img
-                src={`${process.env.PUBLIC_URL}/assets/add_icon.png`}
-                alt={'addIcon'}
-              />
-              추가
-            </AddBtn>
-          </InputBox>
         </ColumnBox>
       </FlexBox>
       <LineDiv direction="column">

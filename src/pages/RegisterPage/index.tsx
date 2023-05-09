@@ -37,7 +37,7 @@ export interface FormInput {
   category: string; // 종류별
   occasion: string; // 상황별
   method: string; // 방법별
-  ingredient: { one: string; two: string }; // 재료별
+  ingredient: { one: string; two: string }[]; // 재료별
   totalNumber: string; // 몇 인분 인지
   infoTime: string; // 요리 정보에서의 시간
   difficulty: string; // 상 중 하 난이도
@@ -51,7 +51,11 @@ export interface FormInput {
 // cart: [{ name: 'test', quantity: 1, price: 23 }];
 export const RegisterPage = () => {
   // const { register, watch, handleSubmit } = useForm<FormInput>();
-  const methods = useForm<FormInput>();
+  const methods = useForm<FormInput>({
+    defaultValues: {
+      ingredient: [{ one: '', two: '' }],
+    },
+  });
   const [imagePreview, setImagePreview] = useState<string>('');
   const [urlThumbnail, setUrlThumbnail] = useState<string>('');
   const recipeImage = methods.watch('recipeImage');
@@ -63,8 +67,6 @@ export const RegisterPage = () => {
       setImagePreview(URL.createObjectURL(file) as string);
     }
   }, [recipeImage]);
-
-  console.log(imagePreview);
 
   const onSubmit: SubmitHandler<FormInput> = data => {
     console.log(data);
