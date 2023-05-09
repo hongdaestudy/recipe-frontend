@@ -100,6 +100,7 @@ export const categoryOption7: OptionType[] = [
 export const jsonExample = {
   // 재료 ingredients
   ingredientGroups: [
+    // 양념인지 재료인지 구별 nest array
     {
       name: '재료',
       ingredients: [
