@@ -156,6 +156,7 @@ export const jsonExample = {
     cookingTime: 'FIVE_MINUTES_LESS', //
     difficultyLevel: 'EASY',
   },
+  // tip
   tip: 'tip',
   mainPhotoFileId: '2',
   completionPhotoFileId: ['1'],
